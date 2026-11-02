@@ -1,5 +1,4 @@
-// 只填入公開的 Project URL 與 publishable / anon key。絕對不要填 service_role / secret key。
 window.CTT_CLOUD = {
-  url: "",
-  anonKey: ""
+  url: "https://fzntypzjasroxvdnmqdd.supabase.co",
+  anonKey: "sb_publishable_YviyS47BDSzUc2LaUsPcFw_E-rXrTBG"
 };
