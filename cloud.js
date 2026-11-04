@@ -52,12 +52,12 @@ async function exportCloud(){
   while(true){const batch=await request('/rest/v1/ctt_records?select=record_id,participant_id,session_id,part,mode,status,started_at,ended_at,duration_sec,error_count,raw&order=started_at.asc&limit=500&offset='+offset);
    all.push(...batch);if(batch.length<500)break;offset+=500;if(offset>100000)throw new Error('超過安全批次上限，請使用資料庫後台匯出')}
   const rs=all.map(x=>x.raw),stamp=new Date().toISOString().replace(/[:.]/g,'-');
-  const cols=['record_id','participant_id','session_id','part','mode','status','started_at','ended_at','duration_sec','completed_targets','total_targets','error_count','miss_count','seed','device_user_agent','viewport_width','viewport_height','screen_width','screen_height','device_pixel_ratio'];
-  download('ctt_cloud_summary_'+stamp+'.csv',csv(rs,cols),'text/csv;charset=utf-8');
+  const cols=['schema_version','record_id','participant_id','session_id','part','task_name','condition','mode','status','started_at','ended_at','duration_sec','completed_targets','total_targets','error_count','summary'];
+  download('telenpa_cloud_summary_'+stamp+'.csv',csv(rs,cols),'text/csv;charset=utf-8');
   const events=rs.flatMap(r=>(r.events||[]).map(e=>({record_id:r.record_id,participant_id:r.participant_id,session_id:r.session_id,part:r.part,mode:r.mode,...e})));
-  const evcols=['record_id','participant_id','session_id','part','mode','event_index','timestamp_iso','elapsed_ms','event_type','clicked_id','clicked_number','clicked_color','expected_number','expected_color','x_svg','y_svg','pointer_type','inter_correct_ms'];
-  download('ctt_cloud_events_'+stamp+'.csv',csv(events,evcols),'text/csv;charset=utf-8');
-  download('ctt_cloud_full_'+stamp+'.json',JSON.stringify(rs,null,2),'application/json;charset=utf-8');
+  const eventCols=['record_id','participant_id','session_id','part','mode','trial_index','condition','rule','transition','set_size','target','options','correct_index','response_index','response','correct','rt_ms','pointer_type','timestamp_iso','event_index','elapsed_ms','event_type','clicked_id','clicked_number','clicked_color','expected_number','expected_color','x_svg','y_svg','inter_correct_ms'];
+  download('telenpa_cloud_events_'+stamp+'.csv',csv(events,eventCols),'text/csv;charset=utf-8');
+  download('telenpa_cloud_full_'+stamp+'.json',JSON.stringify(rs,null,2),'application/json;charset=utf-8');
   updateStatus('成功下載 '+rs.length+' 筆；普通研究員只能讀取自己資料，管理員可讀取全部')
  }catch(e){updateStatus('匯出失敗：'+e.message)}
 }
