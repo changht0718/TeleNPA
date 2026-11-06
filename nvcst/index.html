@@ -29,7 +29,7 @@
 <div class="feedback" id="feedback"></div>
 <div id="rest" class="hidden" role="status" aria-live="polite"></div>
 </section>
-<section class="panel"><h3>作業條件與操作原則</h3><div class="infoGrid"><div><p><b>1. Motor baseline</b>：觸碰畫面中央的單一圖形，測量基本觸控反應時間。</p><p><b>2. Visual search</b>：依照畫面上方的圖形樣本，從 6 或 12 個圖形中找出完全相同者，測量搜尋時間與干擾數量效果。</p></div><div><p><b>3. Rule maintenance</b>：依固定「形狀」規則，在左右兩圖中選出與樣本形狀相同的圖形，忽略顏色。</p><p><b>4. Rule switching</b>：根據上方非語文提示決定本次按「形狀」或「顏色」選擇。形狀提示＝輪廓幾何圖形；顏色提示＝雙色圓點。規則可能重複或轉換。</p></div></div><div class="legend">所有條件均以單次觸碰作答；正式施測不提供正誤回饋。圖形與規則在每個試次重新產生，並記錄每個試次的刺激、規則、反應與反應時間。每個條件會先顯示說明並進行練習，練習完成後按空白鍵才開始正式題；正式題完成後再暫停並顯示下一條件說明。每個條件的練習與正式資料分開標記與儲存，休息時間不納入。建議固定裝置與顯示尺寸，並由研究人員先口頭示範非語文規則。</div></section>
+<section class="panel"><h3>作業條件與操作原則</h3><div class="infoGrid"><div><p><b>1. Motor baseline</b>：觸碰畫面中央的單一圖形，測量基本觸控反應時間。</p><p><b>2. Visual search</b>：依照畫面上方的圖形樣本，從 6 或 12 個圖形中找出完全相同者，測量搜尋時間與干擾數量效果。</p></div><div><p><b>3. Rule maintenance</b>：依固定「形狀」規則，在左右兩圖中選出與樣本形狀相同的圖形，忽略顏色。</p><p><b>4. Rule switching</b>：根據上方非語文提示決定本次按「形狀」或「顏色」選擇。形狀提示＝輪廓幾何圖形；顏色提示＝雙色圓點。規則可能重複或轉換。</p></div></div><div class="legend"><b>四個條件共同原則：請在維持正確的前提下，越快越好。</b> 所有條件均以單次觸碰作答；正式施測不提供正誤回饋。圖形與規則在每個試次重新產生，並記錄每個試次的刺激、規則、反應與反應時間。每個條件會先顯示說明並進行練習，練習完成後按空白鍵才開始正式題；正式題完成後再暫停並顯示下一條件說明。每個條件的練習與正式資料分開標記與儲存，休息時間不納入。建議固定裝置與顯示尺寸，並由研究人員先口頭示範非語文規則。</div></section>
 <section class="panel" id="cloudPanel"><h3>雲端研究平台 · 研究人員登入</h3><div class="controls"><label>研究人員 Email<input id="cloudEmail" type="email" autocomplete="username" placeholder="researcher@example.edu.tw"></label><label>密碼<input id="cloudPassword" type="password" autocomplete="current-password" placeholder="Supabase Auth 密碼"></label><button id="cloudLogin">登入</button><button id="cloudLogout" class="secondary" disabled>登出</button><button id="cloudSync" class="secondary">重新同步待傳資料</button><button id="cloudExport" class="secondary">下載雲端資料 CSV／JSON</button></div><p id="cloudStatus" class="muted">請先設定原有 config.js。</p><p class="muted">採用現有 TeleNPA 登入與資料庫；未同步紀錄暫存於目前瀏覽器。正式收案前請使用模擬資料驗證權限與資料匯出。</p></section>
 <section class="panel"><div class="infoGrid"><div><h3>本機備份</h3><div class="controls"><button id="exportSummary">匯出摘要 CSV</button><button id="exportEvents">匯出逐試次 CSV</button><button id="exportJson" class="secondary">匯出完整 JSON</button><button id="clear" class="danger">清除本機紀錄</button></div></div><div><h3>最近施測紀錄</h3><div class="tableWrap"><table><thead><tr><th>受試者</th><th>作業</th><th>Condition</th><th>模式</th><th>狀態</th><th>秒數</th><th>錯誤</th></tr></thead><tbody id="records"></tbody></table></div></div></div></section>
 <div class="warn"><b>研究用途與限制：</b>NVCST 是未標準化的原創數位作業，不是 CTT、WCST 或其他商業測驗的授權複製品；不可直接引用既有測驗常模。規則提示、辨色能力、設備大小、練習效應及反應速度均需驗證。資料庫中既有 CTT 試次會保留，並以 part 欄位區分。</div>
@@ -61,9 +61,9 @@ function answer(index,pointer){const a=active;if(!a||a.locked)return;a.locked=tr
 // 分段資料獨立儲存，使用共同 run_id 串連同一名受試者的整套流程。
 const CONDITION_ORDER=['motor','search','maintain','switch'];
 const instructions={
- motor:'畫面中央會出現單一圖形。請盡快觸碰它。每題出現時觸碰一次即可。',
- search:'先看上方樣本，再從下面多個圖形中，找出「形狀與顏色都完全相同」的圖形。每題只有一個正確答案。',
- maintain:'先看上方樣本，選出與樣本「形狀相同」的圖形；不需要管顏色是否相同。',
+ motor:'畫面中央會出現單一圖形。請在保持正確的前提下，看到圖形後盡可能快速觸碰。每題觸碰一次即可。',
+ search:'先看上方樣本，再從下面多個圖形中，盡可能快速且正確地找出「形狀與顏色都完全相同」的圖形。每題只有一個正確答案，請兼顧速度與正確性。',
+ maintain:'先看上方樣本，選出與樣本「形狀相同」的圖形；不需要管顏色是否相同。請在保持正確的前提下盡可能快速作答。',
  switch:'請先看上方的「規則提示」：空心圓與方框表示比較形狀；藍色與橘色圓點表示比較顏色。每題只依當次提示選出符合的圖形，規則可能改變。'
 };
 let pauseKind=null;
@@ -72,7 +72,10 @@ function begin(){
  if(!pid){alert('請輸入匿名受試者代碼。');return}
  if(runPlan||active)return;
  const selected=$('condition').value;
- runPlan={pid,session,conditions:selected==='all'?[...CONDITION_ORDER]:[selected],nextIndex:0,
+ const fromUrl=new URLSearchParams(location.search).get('conditions');
+ const requested=fromUrl?fromUrl.split(',').map(x=>x.trim()).filter(x=>CONDITION_ORDER.includes(x)):[];
+ const selectedConditions=requested.length?[...new Set(requested)]:selected==='all'?[...CONDITION_ORDER]:[selected];
+ runPlan={pid,session,conditions:selectedConditions,nextIndex:0,
   mode:'practice',run_id:crypto.randomUUID()};
  $('start').disabled=true;$('abort').disabled=false;
  showConditionInstructions();
@@ -177,6 +180,7 @@ const q=v=>'"'+String(v==null?'':typeof v==='object'?JSON.stringify(v):v).replac
 $('exportSummary').onclick=()=>{const rs=load();download('telenpa_summary_'+stamp()+'.csv',csv(rs,['schema_version','record_id','participant_id','session_id','part','condition','mode','status','started_at','ended_at','duration_sec','completed_targets','total_targets','error_count','summary']),'text/csv;charset=utf-8')};
 $('exportEvents').onclick=()=>{const rs=load(),ev=rs.flatMap(r=>(r.events||[]).map(e=>({record_id:r.record_id,participant_id:r.participant_id,session_id:r.session_id,part:r.part,mode:r.mode,...e})));download('telenpa_trials_'+stamp()+'.csv',csv(ev,['record_id','participant_id','session_id','part','mode','trial_index','condition','rule','transition','set_size','target','options','correct_index','response_index','response','correct','rt_ms','pointer_type','timestamp_iso']),'text/csv;charset=utf-8')};
 $('exportJson').onclick=()=>download('telenpa_complete_'+stamp()+'.json',JSON.stringify(load(),null,2),'application/json;charset=utf-8');$('clear').onclick=()=>{if(active){alert('請先結束施測');return}if(confirm('確定永久清除此瀏覽器的本機紀錄？請先匯出備份並確認雲端同步。')){localStorage.removeItem(KEY);renderRecords()}};
+try{const q=new URLSearchParams(location.search).get('conditions');if(q){const wanted=q.split(',').filter(x=>CONDITION_ORDER.includes(x));if(wanted.length===1)$('condition').value=wanted[0];else if(wanted.length>1){const opt=document.createElement('option');opt.value='custom';opt.textContent='自訂條件：'+wanted.map(x=>({motor:'MB',search:'VS',maintain:'RM',switch:'RS'}[x])).join(' → ');$('condition').appendChild(opt);$('condition').value='custom'}}}catch{}
 try{const pre=JSON.parse(sessionStorage.getItem('telenpa_prefill_v2')||'null');if(pre){$('pid').value=pre.participant_id||'';$('session').value=pre.session_id||'V1'}}catch{}
 $('start').onclick=begin;$('abort').onclick=()=>{if(runPlan&&confirm('確定中止施測？已儲存的練習及正式紀錄會保留，進行中的區塊將儲存已完成試次。')){if(active)finish('aborted');else{$('message').textContent='已中止：先前已完成的紀錄仍保留。';endRun()}}};$('full').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()};renderRecords();
 })();
