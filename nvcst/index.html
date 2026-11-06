@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TeleNPA｜NVCST 非語文視覺控制與轉換作業</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;color:#1c3040;background:#eef3f6}*{box-sizing:border-box}body{margin:0}header{background:#183752;color:#fff;padding:16px 22px}header h1{font-size:22px;margin:0 0 4px}header small{color:#d4e3ed}.wrap{max-width:1240px;margin:16px auto;padding:0 14px}.panel{background:white;border:1px solid #d7e1e8;border-radius:12px;padding:17px;margin-bottom:14px}.controls{display:flex;gap:12px;align-items:end;flex-wrap:wrap}label{font-size:13px;font-weight:650;display:grid;gap:5px}input,select{font:inherit;border:1px solid #b7c9d7;border-radius:7px;padding:9px;min-height:42px;max-width:230px}button{font:inherit;border:0;border-radius:8px;padding:10px 16px;background:#196da8;color:#fff;font-weight:650;min-height:43px;cursor:pointer}button.secondary{background:#536e80}button.danger{background:#a1434f}button:disabled{opacity:.48;cursor:not-allowed}h3{margin:0 0 12px}p{line-height:1.6}.muted{color:#627588;font-size:13px}.status{display:flex;flex-wrap:wrap;gap:23px;margin:15px 0 0}.status b{font-size:23px}.status span{display:block;font-size:12px;color:#607789}.stage{border:2px solid #d3e0e9;border-radius:14px;background:#fff;min-height:540px;padding:16px;margin-bottom:14px;display:flex;flex-direction:column;align-items:center;position:relative;user-select:none;-webkit-user-select:none;touch-action:manipulation}.phase{font-size:14px;color:#526e83;font-weight:650;align-self:flex-start}.instruction{font-size:19px;font-weight:750;min-height:34px;text-align:center;margin:12px 0;color:#244962}.cueRow{display:flex;align-items:center;justify-content:center;gap:22px;min-height:100px;flex-wrap:wrap}.cueBox{border:2px solid #dce5eb;border-radius:12px;padding:8px 14px;background:#f8fafc;min-width:112px;text-align:center}.cueName{font-size:12px;color:#516a7c}.stim{display:flex;align-items:center;justify-content:center}.stim svg{width:100%;height:100%;max-width:100%;max-height:100%;display:block;flex:none}.choices{display:flex;align-items:center;justify-content:center;gap:27px;width:100%;flex-wrap:wrap;margin:auto 0}.choice{display:flex;align-items:center;justify-content:center;width:170px;height:170px;border:3px solid #a5b9c8;background:#fff;color:#233f51;border-radius:22px;padding:16px;touch-action:manipulation;transition:background .12s}.choice:active{background:#e5f1fb}.choice svg{display:block;width:125px;height:125px;max-width:100%;max-height:100%;flex:0 0 auto;overflow:visible}.choices.grid{display:grid;grid-template-columns:repeat(6,minmax(75px,1fr));gap:13px;margin:auto 0}.choices.grid .choice{width:100%;height:112px;padding:12px;border-width:2px}.choices.grid .choice svg{width:65px;height:65px;max-width:100%;max-height:100%}.choices.grid.c12{grid-template-columns:repeat(6,minmax(75px,1fr))}.feedback{font-size:15px;color:#526f83;margin-top:8px;min-height:25px;text-align:center}.key{display:inline-flex;align-items:center;gap:10px}.legend{padding:12px;background:#f3f7fa;border-radius:8px;font-size:13px;line-height:1.6}.infoGrid{display:flex;gap:14px;flex-wrap:wrap}.infoGrid>*{flex:1;min-width:250px}.tableWrap{max-height:240px;overflow:auto}table{border-collapse:collapse;width:100%;font-size:13px}td,th{text-align:left;padding:9px;border-bottom:1px solid #dfe7ed}th{background:#f0f5f9;position:sticky;top:0}.warn{padding:12px;background:#fff5e2;border:1px solid #e9d3aa;border-radius:9px;color:#735a30;font-size:13px}.pill{background:#e4eff5;color:#204c67;border-radius:99px;padding:5px 11px;font-size:12px;font-weight:650}#trialTarget{height:92px;width:92px;margin:5px auto}#ruleIcon{height:62px;width:82px;margin:auto}#rest{font-size:18px;text-align:center;margin:auto;max-width:630px;line-height:1.8}#rest button{margin-top:20px}.hidden{display:none!important}@media(max-width:740px){.wrap{padding:0 7px;margin:9px auto}.panel{padding:12px}header{padding:12px}.stage{min-height:460px;padding:9px}.choice{width:126px;height:126px;padding:10px}.choices{gap:15px}.choices.grid,.choices.grid.c12{grid-template-columns:repeat(3,minmax(78px,1fr));gap:8px}.choices.grid .choice{height:78px;padding:8px}.choices.grid .choice svg{width:52px;height:52px;max-width:100%;max-height:100%}}
+
+/* iPad Safari: explicit intrinsic SVG geometry inside flex buttons */
+#trialTarget svg{width:92px;height:92px}
+#ruleIcon svg{width:82px;height:62px}
+.choice{-webkit-appearance:none;appearance:none}
+</style>
+</head><body>
+<header><h1>TeleNPA · Nonverbal Visual Control and Switching Task</h1><small>NVCST 研究原型｜原創幾何刺激｜觸控／滑鼠｜沿用現有 Supabase 雲端</small></header>
+<main class="wrap">
+<section class="panel"><div class="controls">
+<label>受試者代碼<input id="pid" placeholder="例如 P001" autocomplete="off"></label>
+<label>場次<input id="session" value="V1" placeholder="例如 V1"></label>
+<label>施測範圍<select id="condition"><option value="all">全部四個條件</option><option value="motor">1 · Motor baseline</option><option value="search">2 · Visual search</option><option value="maintain">3 · Rule maintenance</option><option value="switch">4 · Rule switching</option></select></label>
+<label>施測流程<input value="規則說明 → 練習 → 正式施測" disabled style="max-width:260px"></label>
+<button id="start">開始施測</button><button id="abort" class="secondary" disabled>中止本次</button><button id="full" class="secondary">全螢幕</button></div>
+<div class="status"><div><span>目前條件</span><b id="phaseLabel">—</b></div><div><span>已完成試次</span><b id="progress">0 / 0</b></div><div><span>目前計時</span><b id="clock">0.000 s</b></div><div><span>錯誤次數</span><b id="errors">0</b></div></div><p id="message" class="muted" role="status">輸入匿名受試者代碼，每一條件將依序進行規則說明、練習及正式施測。</p></section>
+<section class="stage" id="stage">
+<div class="phase" id="stagePhase">尚未開始</div>
+<div class="instruction" id="instruction">請先閱讀下方的四個條件說明</div>
+<div class="cueRow hidden" id="cueRow"><div class="cueBox"><div class="cueName" id="cueCaption">目標</div><div id="trialTarget" class="stim"></div></div><div class="cueBox hidden" id="ruleBox"><div class="cueName">規則提示</div><div id="ruleIcon" class="stim"></div></div></div>
+<div class="choices" id="choices"></div>
+<div class="feedback" id="feedback"></div>
+<div id="rest" class="hidden" role="status" aria-live="polite"></div>
+</section>
+<section class="panel"><h3>作業條件與操作原則</h3><div class="infoGrid"><div><p><b>1. Motor baseline</b>：觸碰畫面中央的單一圖形，測量基本觸控反應時間。</p><p><b>2. Visual search</b>：依照畫面上方的圖形樣本，從 6 或 12 個圖形中找出完全相同者，測量搜尋時間與干擾數量效果。</p></div><div><p><b>3. Rule maintenance</b>：依固定「形狀」規則，在左右兩圖中選出與樣本形狀相同的圖形，忽略顏色。</p><p><b>4. Rule switching</b>：根據上方非語文提示決定本次按「形狀」或「顏色」選擇。形狀提示＝輪廓幾何圖形；顏色提示＝雙色圓點。規則可能重複或轉換。</p></div></div><div class="legend">所有條件均以單次觸碰作答；正式施測不提供正誤回饋。圖形與規則在每個試次重新產生，並記錄每個試次的刺激、規則、反應與反應時間。每個條件會先顯示說明並進行練習，練習完成後按空白鍵才開始正式題；正式題完成後再暫停並顯示下一條件說明。每個條件的練習與正式資料分開標記與儲存，休息時間不納入。建議固定裝置與顯示尺寸，並由研究人員先口頭示範非語文規則。</div></section>
+<section class="panel" id="cloudPanel"><h3>雲端研究平台 · 研究人員登入</h3><div class="controls"><label>研究人員 Email<input id="cloudEmail" type="email" autocomplete="username" placeholder="researcher@example.edu.tw"></label><label>密碼<input id="cloudPassword" type="password" autocomplete="current-password" placeholder="Supabase Auth 密碼"></label><button id="cloudLogin">登入</button><button id="cloudLogout" class="secondary" disabled>登出</button><button id="cloudSync" class="secondary">重新同步待傳資料</button><button id="cloudExport" class="secondary">下載雲端資料 CSV／JSON</button></div><p id="cloudStatus" class="muted">請先設定原有 config.js。</p><p class="muted">採用現有 TeleNPA 登入與資料庫；未同步紀錄暫存於目前瀏覽器。正式收案前請使用模擬資料驗證權限與資料匯出。</p></section>
+<section class="panel"><div class="infoGrid"><div><h3>本機備份</h3><div class="controls"><button id="exportSummary">匯出摘要 CSV</button><button id="exportEvents">匯出逐試次 CSV</button><button id="exportJson" class="secondary">匯出完整 JSON</button><button id="clear" class="danger">清除本機紀錄</button></div></div><div><h3>最近施測紀錄</h3><div class="tableWrap"><table><thead><tr><th>受試者</th><th>作業</th><th>Condition</th><th>模式</th><th>狀態</th><th>秒數</th><th>錯誤</th></tr></thead><tbody id="records"></tbody></table></div></div></div></section>
+<div class="warn"><b>研究用途與限制：</b>NVCST 是未標準化的原創數位作業，不是 CTT、WCST 或其他商業測驗的授權複製品；不可直接引用既有測驗常模。規則提示、辨色能力、設備大小、練習效應及反應速度均需驗證。資料庫中既有 CTT 試次會保留，並以 part 欄位區分。</div>
+</main>
+<script src="../config.js"></script>
+<script src="../shared/auth.js"></script>
+<script>
+(()=>{'use strict';const $=id=>document.getElementById(id);const KEY='ctt_research_v2_records',TASK='NVCST',SHAPES=['circle','square','triangle','diamond'],COLORS=['blue','orange'];let active=null,runPlan=null,timer=null,advanceTimer=null;const now=()=>performance.now(),iso=()=>new Date().toISOString(),rnd=()=>Math.random(),pick=a=>a[Math.floor(rnd()*a.length)],shuffle=a=>{for(let i=a.length-1;i>0;i--){let j=Math.floor(rnd()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const labels={motor:'Motor baseline',search:'Visual search',maintain:'Rule maintenance',switch:'Rule switching'};
+function svgStim(shape,color){const c=color==='blue'?'#267aa8':'#dc8743';let body=shape==='circle'?'<circle cx="50" cy="50" r="31"/>':shape==='square'?'<rect x="20" y="20" width="60" height="60" rx="6"/>':shape==='triangle'?'<polygon points="50,14 84,78 16,78"/>':'<polygon points="50,12 88,50 50,88 12,50"/>';return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="visual symbol"><g fill="${c}" stroke="#244b64" stroke-width="2">${body}</g></svg>`}
+function ruleSvg(rule){return rule==='shape'?'<svg xmlns="http://www.w3.org/2000/svg" width="100" height="70" viewBox="0 0 100 70"><circle cx="32" cy="35" r="20" fill="none" stroke="#45586b" stroke-width="5"/><rect x="61" y="16" width="28" height="38" fill="none" stroke="#45586b" stroke-width="5"/></svg>':'<svg xmlns="http://www.w3.org/2000/svg" width="100" height="70" viewBox="0 0 100 70"><circle cx="30" cy="35" r="23" fill="#267aa8"/><circle cx="72" cy="35" r="23" fill="#dc8743"/></svg>'}
+function targets(){return {shape:pick(SHAPES),color:pick(COLORS)}}
+function different(a,items){return pick(items.filter(x=>x!==a))}
+function makeTrial(kind,rule=null,setSize=null){const target=targets();if(kind==='motor')return {kind,rule:'touch',target,options:[{...target}],correct_index:0};if(kind==='search'){const n=setSize||6,opts=[{...target}];const used=new Set([target.shape+'-'+target.color]);for(const s of SHAPES)for(const c of COLORS){const k=s+'-'+c;if(!used.has(k)){used.add(k);opts.push({shape:s,color:c})}}// 8 unique combos; set size 12 requires repeated distractors; repeats are allowed, target remains unique.
+ const distractors=opts.slice(1);const selected=shuffle([...distractors]);while(selected.length<n-1)selected.push({...pick(distractors)});const options=shuffle([opts[0],...selected.slice(0,n-1)]);return {kind,rule:'exact',target,set_size:n,options,correct_index:options.findIndex(o=>o.shape===target.shape&&o.color===target.color)}}
+ const r=rule||'shape';const correct=r==='shape'?{shape:target.shape,color:different(target.color,COLORS)}:{shape:different(target.shape,SHAPES),color:target.color};const incorrect=r==='shape'?{shape:different(target.shape,SHAPES),color:target.color}:{shape:target.shape,color:different(target.color,COLORS)};const options=shuffle([correct,incorrect]);return {kind,rule:r,target,options,correct_index:options.indexOf(correct)}}
+function trials(kind,mode){const practice=mode==='practice';if(kind==='motor')return Array.from({length:practice?4:12},()=>makeTrial('motor'));if(kind==='search'){const ns=practice?[6,12,6,12]:shuffle([...Array(12).fill(6),...Array(12).fill(12)]);return ns.map(n=>makeTrial('search',null,n))}if(kind==='maintain')return Array.from({length:practice?6:24},()=>makeTrial('maintain','shape'));
+ // Rule sequence containing deliberate repeats and switches. Ensure each rule represented without fully predictable alternation.
+ const count=practice?8:48;let seq=['shape','shape','color','color'];while(seq.length<count){let prev=seq.at(-1);seq.push(rnd()<.48?(prev==='shape'?'color':'shape'):prev)}return seq.slice(0,count).map((r,i)=>({...makeTrial('switch',r),transition:i===0?'first':seq[i-1]===r?'repeat':'switch'}))}
+function generate(mode,selected){const kinds=selected==='all'?['motor','search','maintain','switch']:[selected],out=[];for(const k of kinds)out.push(...trials(k,mode));return out}
+function load(){try{let x=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(x)?x:[]}catch{return []}}
+function save(r){let all=load();all.push(r);try{localStorage.setItem(KEY,JSON.stringify(all))}catch(e){alert('本機儲存失敗，請立即匯出：'+e.message)}renderRecords();window.dispatchEvent(new CustomEvent('ctt:recordSaved',{detail:{record_id:r.record_id}}))}
+function uiStatus(){if(!active)return;const a=active,t=a.trials[a.index];$('phaseLabel').textContent=t?labels[t.kind]:'完成';$('progress').textContent=`${a.index} / ${a.trials.length}`;$('errors').textContent=a.errors;$('clock').textContent=((now()-a.t0)/1000).toFixed(3)+' s'}
+function renderTrial(){if(!active)return;const a=active,t=a.trials[a.index];if(!t){finish('completed');return}uiStatus();$('rest').classList.add('hidden');$('choices').className='choices';$('choices').innerHTML='';$('cueRow').classList.toggle('hidden',t.kind==='motor');$('ruleBox').classList.toggle('hidden',!['maintain','switch'].includes(t.kind));$('stagePhase').textContent=`${labels[t.kind]} · ${a.mode==='practice'?'練習':'正式'} · ${a.index+1} / ${a.trials.length}`;
+ $('instruction').textContent=t.kind==='motor'?'觸碰中央圖形':t.kind==='search'?'找出與上方完全相同的圖形':t.kind==='maintain'?'選出相同形狀，忽略顏色':'依照圖形提示：比較形狀或顏色';$('trialTarget').innerHTML=svgStim(t.target.shape,t.target.color);$('cueCaption').textContent=t.kind==='search'?'尋找這個圖形':'比較樣本';$('ruleIcon').innerHTML=ruleSvg(t.rule);$('feedback').textContent='';if(t.kind==='search')$('choices').classList.add('grid','c'+t.options.length);
+ t.options.forEach((s,i)=>{const b=document.createElement('button');b.className='choice';b.type='button';b.setAttribute('aria-label',`選項 ${i+1}`);b.innerHTML=svgStim(s.shape,s.color);b.addEventListener('pointerdown',e=>{if(!active||active.locked)return;e.preventDefault();answer(i,e.pointerType||'unknown')});$('choices').appendChild(b)});a.trialT0=now();a.locked=false}
+function answer(index,pointer){const a=active;if(!a||a.locked)return;a.locked=true;const t=a.trials[a.index],rt=now()-a.trialT0,correct=index===t.correct_index;const trial={trial_index:a.index+1,condition:t.kind,rule:t.rule,transition:t.transition||'',set_size:t.set_size||t.options.length,target:t.target,options:t.options,correct_index:t.correct_index,response_index:index,response:t.options[index],correct,rt_ms:+rt.toFixed(2),pointer_type:pointer,timestamp_iso:iso()};a.events.push(trial);if(!correct)a.errors++;a.index++;uiStatus();$('feedback').textContent=a.mode==='practice'?(correct?'正確':'不正確，請看清楚規則'):' ';$('choices').innerHTML='';advanceTimer=setTimeout(()=>{advanceTimer=null;if(!active)return;if(a.index>=a.trials.length)finish('completed');else renderTrial()},a.mode==='practice'?500:280)}
+// 每個條件依序：說明 → 練習 → 練習完成確認 → 正式施測 → 下一條件說明。
+// 分段資料獨立儲存，使用共同 run_id 串連同一名受試者的整套流程。
+const CONDITION_ORDER=['motor','search','maintain','switch'];
+const instructions={
+ motor:'畫面中央會出現單一圖形。請盡快觸碰它。每題出現時觸碰一次即可。',
+ search:'先看上方樣本，再從下面多個圖形中，找出「形狀與顏色都完全相同」的圖形。每題只有一個正確答案。',
+ maintain:'先看上方樣本，選出與樣本「形狀相同」的圖形；不需要管顏色是否相同。',
+ switch:'請先看上方的「規則提示」：空心圓與方框表示比較形狀；藍色與橘色圓點表示比較顏色。每題只依當次提示選出符合的圖形，規則可能改變。'
+};
+let pauseKind=null;
+function begin(){
+ const pid=$('pid').value.trim(),session=$('session').value.trim();
+ if(!pid){alert('請輸入匿名受試者代碼。');return}
+ if(runPlan||active)return;
+ const selected=$('condition').value;
+ runPlan={pid,session,conditions:selected==='all'?[...CONDITION_ORDER]:[selected],nextIndex:0,
+  mode:'practice',run_id:crypto.randomUUID()};
+ $('start').disabled=true;$('abort').disabled=false;
+ showConditionInstructions();
+}
+function showPause(title,body,buttonText,kind){
+ pauseKind=kind;
+ $('stagePhase').textContent='準備／休息（尚未計時）';
+ $('instruction').textContent=title;
+ $('phaseLabel').textContent='等待開始';
+ $('cueRow').classList.add('hidden');$('choices').innerHTML='';$('choices').classList.add('hidden');
+ $('feedback').textContent='';
+ $('rest').innerHTML=`<div style="font-size:22px;font-weight:750;margin-bottom:14px">${title}</div><p style="font-size:17px">${body}</p><p><b>按空白鍵 Space</b>，或點擊下面按鈕才會開始。此畫面不計時。</p><button id="continueBlock" type="button">${buttonText}</button>`;
+ $('rest').classList.remove('hidden');
+ $('continueBlock').onclick=continueAfterPause;
+ $('clock').textContent='—';$('progress').textContent='—';$('errors').textContent='—';
+}
+function showConditionInstructions(){
+ if(!runPlan||active)return;
+ const kind=runPlan.conditions[runPlan.nextIndex];
+ if(!kind){endRun();return}
+ runPlan.mode='practice';
+ showPause(`${labels[kind]}｜作業說明`,
+ `${instructions[kind]}<br><br>首先進行 <b>${trialsCount(kind,'practice')} 題練習</b>，練習題會提供正誤回饋。練習完成後，將另有畫面提醒開始正式題。`,
+ '開始練習', 'instructions');
+ $('message').textContent=`條件 ${runPlan.nextIndex+1}/${runPlan.conditions.length}：${labels[kind]}。請先說明規則，再由施測者啟動練習。`;
+}
+function trialsCount(kind,mode){return {motor:[4,12],search:[4,24],maintain:[6,24],switch:[8,48]}[kind][mode==='practice'?0:1]}
+function launchBlock(mode){
+ if(!runPlan||active)return;
+ const plan=runPlan,kind=plan.conditions[plan.nextIndex];
+ if(!kind){endRun();return}
+ plan.mode=mode;pauseKind=null;
+ const list=trials(kind,mode);
+ active={record_id:crypto.randomUUID(),pid:plan.pid,session:plan.session,mode,condition:kind,
+  block_index:plan.nextIndex+1,block_count:plan.conditions.length,run_id:plan.run_id,
+  trials:list,events:[],index:0,errors:0,started_at:iso(),t0:now(),trialT0:0,locked:false};
+ $('rest').classList.add('hidden');$('choices').classList.remove('hidden');$('cueRow').classList.add('hidden');
+ $('message').textContent=`${labels[kind]}（${plan.nextIndex+1}/${plan.conditions.length}）｜${mode==='formal'?'正式施測':'練習'}；${mode==='formal'?'不提供正誤回饋':'每題提供正誤回饋'}`;
+ timer=setInterval(uiStatus,60);renderTrial();
+}
+function waitForFormal(kind){
+ showPause(`${labels[kind]}｜練習完成`,
+ `練習已結束，請確認受試者理解規則。<br>即將進行 <b>${trialsCount(kind,'formal')} 題正式施測</b>。<br>正式題不提供正誤回饋；準備好後才開始。`,
+ '開始正式施測','formal');
+ $('message').textContent=`${labels[kind]} 練習已儲存。按 Space 開始正式題；等待時間不計入正式秒數。`;
+}
+function continueAfterPause(){
+ if(!runPlan||active||!pauseKind)return;
+ if(pauseKind==='instructions')launchBlock('practice');
+ else if(pauseKind==='formal')launchBlock('formal');
+}
+document.addEventListener('keydown',e=>{
+ if(e.code!=='Space'||e.repeat||!runPlan||active||!pauseKind)return;
+ if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;
+ e.preventDefault();continueAfterPause();
+});
+function endRun(){
+ clearInterval(timer);clearTimeout(advanceTimer);timer=null;advanceTimer=null;active=null;runPlan=null;pauseKind=null;
+ $('start').disabled=false;$('abort').disabled=true;
+ $('rest').classList.add('hidden');$('choices').classList.remove('hidden');
+ $('cueRow').classList.add('hidden');$('choices').innerHTML='';
+ $('stagePhase').textContent='本次施測已結束';
+ $('instruction').textContent='可輸入下一位受試者或重新開始施測';
+ $('phaseLabel').textContent='完成';
+}
+function finish(status){
+ const a=active;if(!a)return;
+ clearInterval(timer);clearTimeout(advanceTimer);timer=null;advanceTimer=null;
+ const duration=+((now()-a.t0)/1000).toFixed(3),ev=a.events;
+ const avg=y=>y.length?+(y.reduce((s,v)=>s+v.rt_ms,0)/y.length).toFixed(2):null;
+ const summary={[a.condition]:{n:ev.length,accuracy:ev.length?+(ev.filter(z=>z.correct).length/ev.length).toFixed(4):null,
+ mean_rt_ms:avg(ev),mean_correct_rt_ms:avg(ev.filter(z=>z.correct))}};
+ const switchGood=ev.filter(t=>t.condition==='switch'&&t.correct&&t.transition==='switch'),
+  repeatGood=ev.filter(t=>t.condition==='switch'&&t.correct&&t.transition==='repeat');
+ summary.switch_cost_ms=switchGood.length&&repeatGood.length?+(avg(switchGood)-avg(repeatGood)).toFixed(2):null;
+ const result={schema_version:'nvcst-1.2',record_id:a.record_id,participant_id:a.pid,session_id:a.session,
+  part:TASK,mode:a.mode,status,task_name:TASK,condition:a.condition,run_id:a.run_id,
+  block_index:a.block_index,block_count:a.block_count,started_at:a.started_at,ended_at:iso(),duration_sec:duration,
+  completed_targets:ev.length,total_targets:a.trials.length,error_count:a.errors,miss_count:0,
+  device_user_agent:navigator.userAgent,viewport_width:innerWidth,viewport_height:innerHeight,
+  screen_width:screen.width,screen_height:screen.height,device_pixel_ratio:devicePixelRatio,summary,events:ev};
+ save(result);active=null;
+ $('clock').textContent=duration.toFixed(3)+' s';$('progress').textContent=`${ev.length} / ${a.trials.length}`;
+ $('errors').textContent=a.errors;
+ $('feedback').textContent=`${labels[a.condition]}：${duration.toFixed(3)} 秒；錯誤 ${a.errors} 次。`;
+ if(status==='aborted'){
+  $('message').textContent=`已中止，${labels[a.condition]} 的已完成試次已獨立儲存。`;
+  endRun();return;
+ }
+ if(runPlan){
+  if(a.mode==='practice'){waitForFormal(a.condition);return}
+  runPlan.nextIndex++;
+  if(runPlan.nextIndex<runPlan.conditions.length){showConditionInstructions();return}
+ }
+ $('message').textContent=`已完成所有條件；各條件練習與正式施測均獨立儲存（共 ${a.block_count*2} 筆）。`;
+ endRun();
+}
+function esc(x){return String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function displayCondition(r){const c=r.condition??r.raw?.condition??'';return ({motor:'Motor baseline',search:'Visual search',maintain:'Rule maintenance',switch:'Rule switching',all:'All four conditions'})[c]||c||'—'}
+function renderRecords(){const rs=load().slice(-15).reverse();$('records').innerHTML=rs.map(r=>`<tr><td>${esc(r.participant_id)}</td><td>${esc(r.part)}</td><td>${esc(displayCondition(r))}</td><td>${esc(r.mode)}</td><td>${esc(r.status)}</td><td>${esc(r.duration_sec)}</td><td>${esc(r.error_count)}</td></tr>`).join('')||'<tr><td colspan="7">尚無紀錄</td></tr>'}
+const q=v=>'"'+String(v==null?'':typeof v==='object'?JSON.stringify(v):v).replaceAll('"','""')+'"';function csv(rs,fields){return '\ufeff'+[fields.join(','),...rs.map(r=>fields.map(f=>q(r[f])).join(','))].join('\r\n')};function download(name,content,type){const u=URL.createObjectURL(new Blob([content],{type})),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2500)}const stamp=()=>iso().replace(/[:.]/g,'-');
+$('exportSummary').onclick=()=>{const rs=load();download('telenpa_summary_'+stamp()+'.csv',csv(rs,['schema_version','record_id','participant_id','session_id','part','condition','mode','status','started_at','ended_at','duration_sec','completed_targets','total_targets','error_count','summary']),'text/csv;charset=utf-8')};
+$('exportEvents').onclick=()=>{const rs=load(),ev=rs.flatMap(r=>(r.events||[]).map(e=>({record_id:r.record_id,participant_id:r.participant_id,session_id:r.session_id,part:r.part,mode:r.mode,...e})));download('telenpa_trials_'+stamp()+'.csv',csv(ev,['record_id','participant_id','session_id','part','mode','trial_index','condition','rule','transition','set_size','target','options','correct_index','response_index','response','correct','rt_ms','pointer_type','timestamp_iso']),'text/csv;charset=utf-8')};
+$('exportJson').onclick=()=>download('telenpa_complete_'+stamp()+'.json',JSON.stringify(load(),null,2),'application/json;charset=utf-8');$('clear').onclick=()=>{if(active){alert('請先結束施測');return}if(confirm('確定永久清除此瀏覽器的本機紀錄？請先匯出備份並確認雲端同步。')){localStorage.removeItem(KEY);renderRecords()}};
+try{const pre=JSON.parse(sessionStorage.getItem('telenpa_prefill_v2')||'null');if(pre){$('pid').value=pre.participant_id||'';$('session').value=pre.session_id||'V1'}}catch{}
+$('start').onclick=begin;$('abort').onclick=()=>{if(runPlan&&confirm('確定中止施測？已儲存的練習及正式紀錄會保留，進行中的區塊將儲存已完成試次。')){if(active)finish('aborted');else{$('message').textContent='已中止：先前已完成的紀錄仍保留。';endRun()}}};$('full').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()};renderRecords();
+})();
+</script>
+<script src="../shared/nvcst-cloud.js"></script>
+</body></html>
