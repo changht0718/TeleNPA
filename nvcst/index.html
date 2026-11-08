@@ -171,7 +171,20 @@ function finish(status){
   if(runPlan.nextIndex<runPlan.conditions.length){showConditionInstructions();return}
  }
  $('message').textContent=`已完成所有條件；各條件練習與正式施測均獨立儲存（共 ${a.block_count*2} 筆）。`;
+ const p=new URLSearchParams(location.search);
+ const fromNema=p.get('return')==='nema'&&!!p.get('nema_id');
  endRun();
+ if(fromNema){
+  $('message').textContent+=' 即將返回 NEMA 的延宕等待頁面。';
+  setTimeout(async()=>{
+   const cloud=window.NVCSTCloud;
+   if(cloud){
+    try{await cloud.sync()}catch(e){console.warn('NVCST cloud sync not complete',e)}
+    if(cloud.pending().length && !confirm('NVCST 仍有未同步雲端的紀錄。請先下載本機 JSON 備份；確定返回 NEMA 嗎？'))return;
+   }
+   location.assign('../nema/?resume=nvcst&nema_id='+encodeURIComponent(p.get('nema_id')));
+  },800);
+ }
 }
 function esc(x){return String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function displayCondition(r){const c=r.condition??r.raw?.condition??'';return ({motor:'Motor baseline',search:'Visual search',maintain:'Rule maintenance',switch:'Rule switching',all:'All four conditions'})[c]||c||'—'}
@@ -186,4 +199,4 @@ $('start').onclick=begin;$('abort').onclick=()=>{if(runPlan&&confirm('確定中�
 })();
 </script>
 <script src="../shared/nvcst-cloud.js"></script>
-</body></html>
+<div style="position:fixed;right:9px;bottom:9px;z-index:10000;background:#fff;border:1px solid #bdd2dd;border-radius:9px;padding:8px;font:14px system-ui"><a href="../nema/" style="color:#145b83">返回 NEMA（完成本測驗後點選）</a></div></body></html>

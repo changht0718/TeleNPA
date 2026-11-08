@@ -18,6 +18,16 @@ async function api(path,options={}){
 async function login(email,password){const d=await api('/auth/v1/token?grant_type=password',{method:'POST',body:JSON.stringify({email,password})});save({access_token:d.access_token,refresh_token:d.refresh_token,expires_at:Date.now()+(d.expires_in||3600)*1000-60000,user:d.user});return d.user}
 async function refresh(){if(!session?.refresh_token)return null;const d=await api('/auth/v1/token?grant_type=refresh_token',{method:'POST',body:JSON.stringify({refresh_token:session.refresh_token})});save({access_token:d.access_token,refresh_token:d.refresh_token,expires_at:Date.now()+(d.expires_in||3600)*1000-60000,user:d.user});return session}
 async function request(path,options={}){if(session&&Date.now()>=session.expires_at){try{await refresh()}catch{save(null);throw Error('登入已過期，請重新登入')}}return api(path,options)}
+async function uploadAudio(path,blob){
+ if(!configured())throw Error('尚未設定 config.js');
+ if(!session?.user)throw Error('請先登入研究人員帳號');
+ if(Date.now()>=session.expires_at)await refresh();
+ const res=await fetch(base+'/storage/v1/object/nema-audio/'+path,{
+   method:'POST',headers:{apikey:cfg.anonKey,Authorization:'Bearer '+session.access_token,
+   'Content-Type':blob.type||'audio/mp4','x-upsert':'true'},body:blob});
+ if(!res.ok){let msg='HTTP '+res.status;try{const x=await res.json();msg=x.message||x.error||msg}catch{}throw Error('音檔上傳失敗：'+msg)}
+ return path;
+}
 function logout(){save(null)}
-window.TeleNPAAuth={configured,login,logout,request,user:()=>session?.user||null,isLoggedIn:()=>!!session?.user,restore:async()=>{if(session&&Date.now()>=session.expires_at){try{await refresh()}catch{save(null)}}return session?.user||null}};
+window.TeleNPAAuth={configured,login,logout,request,uploadAudio,user:()=>session?.user||null,isLoggedIn:()=>!!session?.user,restore:async()=>{if(session&&Date.now()>=session.expires_at){try{await refresh()}catch{save(null)}}return session?.user||null}};
 })();
