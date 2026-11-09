@@ -172,9 +172,9 @@ function finish(status){
  }
  $('message').textContent=`已完成所有條件；各條件練習與正式施測均獨立儲存（共 ${a.block_count*2} 筆）。`;
  const p=new URLSearchParams(location.search);
- const fromNema=p.get('return')==='nema'&&!!p.get('nema_id');
+ const fromNema=p.get('return')==='nema'&&!!p.get('nema_id');const fromNemaV=p.get('return')==='nemav'&&!!p.get('nemav_id');
  endRun();
- if(fromNema){
+ if(fromNema||fromNemaV){
   $('message').textContent+=' 即將返回 NEMA 的延宕等待頁面。';
   setTimeout(async()=>{
    const cloud=window.NVCSTCloud;
@@ -182,7 +182,7 @@ function finish(status){
     try{await cloud.sync()}catch(e){console.warn('NVCST cloud sync not complete',e)}
     if(cloud.pending().length && !confirm('NVCST 仍有未同步雲端的紀錄。請先下載本機 JSON 備份；確定返回 NEMA 嗎？'))return;
    }
-   location.assign('../nema/?resume=nvcst&nema_id='+encodeURIComponent(p.get('nema_id')));
+   if(fromNemaV)location.assign('../nema-v/?resume=nvcst&nemav_id='+encodeURIComponent(p.get('nemav_id')));else location.assign('../nema/?resume=nvcst&nema_id='+encodeURIComponent(p.get('nema_id')));
   },800);
  }
 }
