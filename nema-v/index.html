@@ -43,7 +43,21 @@ button:disabled{opacity:.55;cursor:not-allowed}
 .two-answer button{font-size:19px;padding:18px}
 @media(min-width:800px){.object-tray{grid-template-columns:repeat(6,minmax(0,1fr))}}
 
-</style></head><body><header><h1>NEMA-V｜場景記憶與重建</h1><div style="font-size:12px;opacity:.85;margin-top:5px">介面版本 v10 · 獨立物件／條件式再認</div><small>Scene Memory, Boundary Reconstruction & Relational Recognition｜TeleNPA 雙階段測試版</small></header><main><div id="app"></div><footer>此版本為互動介面與資料結構原型：編碼、重建與再認共用乾淨背景及完整物件圖層；測試版資料同步至 Supabase；刺激尚未正式驗證或文化審查，不用於臨床計分。</footer></main><script src="../config.js"></script><script src="../shared/auth.js"></script><script>
+
+/* NEMA-V v11: photo-realistic objects, consistent tray tiles, crisp sprites */
+.object-tray{gap:10px}
+.object-card{height:145px;min-height:145px;min-width:0;padding:9px;background:#f8fafc;justify-content:center;gap:6px;overflow:hidden}
+.object-card img{display:block;width:110px;max-width:100%;height:95px;max-height:95px;object-fit:contain;object-position:center;filter:none;image-rendering:auto;opacity:1;transform:none}
+.object-card span{font-size:14px;line-height:1.3}
+.object-card.used{opacity:.72}
+.placed-object{filter:none!important;will-change:transform;backface-visibility:hidden}
+.placed-object img{image-rendering:auto;filter:drop-shadow(0 1px 1px rgba(0,0,0,.14));transform:none;opacity:1}
+.placed-object.active{outline:1px solid rgba(18,111,164,.35);outline-offset:2px;border-radius:4px}
+.drag-ghost{filter:none!important;opacity:1!important;z-index:99999}
+.drag-ghost img{image-rendering:auto;filter:drop-shadow(0 2px 2px rgba(0,0,0,.2))!important;opacity:1}
+.sliderwrap input{accent-color:#246e9d}
+@media(prefers-reduced-motion:reduce){.placed-object{animation:none!important;transition:none!important}}
+</style></head><body><header><h1>NEMA-V｜場景記憶與重建</h1><div style="font-size:12px;opacity:.85;margin-top:5px">介面版本 v11 · 寫實物件／平滑吸附／中置視角</div><small>Scene Memory, Boundary Reconstruction & Relational Recognition｜TeleNPA 雙階段測試版</small></header><main><div id="app"></div><footer>此版本為互動介面與資料結構原型：編碼、重建與再認共用乾淨背景及完整物件圖層；測試版資料同步至 Supabase；刺激尚未正式驗證或文化審查，不用於臨床計分。</footer></main><script src="../config.js"></script><script src="../shared/auth.js"></script><script>
 'use strict';
 const scenes=[{"id":"M1","kind":"M1","label":"現代廚房","cultural":"modern","objs":["熱水壺","水果碗","餅乾罐","馬克杯","抹布","砧板"],"points":[{"name":"熱水壺","x":13.0,"y":34.0,"w":19.0,"h":46.0},{"name":"水果碗","x":44.0,"y":43.0,"w":25.0,"h":30.0},{"name":"餅乾罐","x":74.0,"y":41.0,"w":16.0,"h":31.0},{"name":"馬克杯","x":88.0,"y":59.0,"w":15.0,"h":25.0},{"name":"抹布","x":17.0,"y":65.0,"w":27.0,"h":16.0},{"name":"砧板","x":51.0,"y":78.0,"w":48.0,"h":22.0}],"photo":"assets-v9/M1.webp","empty":"assets-v9/M1_empty.webp","stimulus_version":"composited-v9-pilot"},{"id":"T1","kind":"T1","label":"傳統備食區","cultural":"traditional","objs":["石臼","陶鍋","水甕","竹篩","小米","木杵"],"points":[{"name":"石臼","x":18.0,"y":59.0,"w":32.0,"h":40.0},{"name":"陶鍋","x":49.0,"y":32.0,"w":29.0,"h":34.0},{"name":"水甕","x":75.0,"y":32.0,"w":27.0,"h":42.0},{"name":"竹篩","x":80.0,"y":64.0,"w":38.0,"h":31.0},{"name":"小米","x":48.0,"y":79.0,"w":24.0,"h":16.0},{"name":"木杵","x":10.0,"y":49.0,"w":18.0,"h":36.0}],"photo":"assets-v9/T1.webp","empty":"assets-v9/T1_empty.webp","stimulus_version":"composited-v9-pilot"},{"id":"M2","kind":"M2","label":"書桌","cultural":"modern","objs":["檯燈","筆筒","盆栽","文件夾","筆記本","眼鏡"],"points":[{"name":"檯燈","x":17.0,"y":34.0,"w":29.0,"h":62.0},{"name":"筆筒","x":48.0,"y":45.0,"w":13.0,"h":28.0},{"name":"盆栽","x":79.0,"y":44.0,"w":28.0,"h":40.0},{"name":"文件夾","x":29.0,"y":79.0,"w":48.0,"h":22.0},{"name":"筆記本","x":54.0,"y":83.0,"w":38.0,"h":29.0},{"name":"眼鏡","x":77.0,"y":69.0,"w":22.0,"h":15.0}],"photo":"assets-v9/M2.webp","empty":"assets-v9/M2_empty.webp","stimulus_version":"composited-v9-pilot"},{"id":"T2","kind":"T2","label":"編織工作區","cultural":"traditional","objs":["織具","線團","竹籃","梭具","織帶","工具盒"],"points":[{"name":"織具","x":58.0,"y":39.0,"w":39.0,"h":71.0},{"name":"線團","x":24.0,"y":76.0,"w":26.0,"h":25.0},{"name":"竹籃","x":17.0,"y":56.0,"w":30.0,"h":40.0},{"name":"梭具","x":54.0,"y":76.0,"w":27.0,"h":16.0},{"name":"織帶","x":76.0,"y":81.0,"w":37.0,"h":23.0},{"name":"工具盒","x":87.0,"y":56.0,"w":22.0,"h":32.0}],"photo":"assets-v9/T2.webp","empty":"assets-v9/T2_empty.webp","stimulus_version":"composited-v9-pilot"},{"id":"M3","kind":"M3","label":"都市玄關","cultural":"modern","objs":["帽子","外套","背包","水壺","雨傘","收納籃"],"points":[{"name":"帽子","x":29.0,"y":30.0,"w":25.0,"h":34.0},{"name":"外套","x":57.0,"y":42.0,"w":18.0,"h":59.0},{"name":"背包","x":25.0,"y":75.0,"w":27.0,"h":40.0},{"name":"水壺","x":40.0,"y":82.0,"w":10.0,"h":30.0},{"name":"雨傘","x":70.0,"y":37.0,"w":12.0,"h":51.0},{"name":"收納籃","x":78.0,"y":78.0,"w":23.0,"h":28.0}],"photo":"assets-v9/M3.webp","empty":"assets-v9/M3_empty.webp","stimulus_version":"composited-v9-pilot"},{"id":"T3","kind":"T3","label":"山屋入口","cultural":"traditional","objs":["背簍","披布","手杖","草鞋","編籃","木碗"],"points":[{"name":"背簍","x":20.0,"y":48.0,"w":31.0,"h":48.0},{"name":"披布","x":41.0,"y":24.0,"w":30.0,"h":38.0},{"name":"手杖","x":66.0,"y":36.0,"w":12.0,"h":55.0},{"name":"草鞋","x":62.0,"y":83.0,"w":25.0,"h":25.0},{"name":"編籃","x":81.0,"y":64.0,"w":34.0,"h":34.0},{"name":"木碗","x":41.0,"y":65.0,"w":22.0,"h":20.0}],"photo":"assets-v9/T3.webp","empty":"assets-v9/T3_empty.webp","stimulus_version":"composited-v9-pilot"},{"id":"M4","kind":"M4","label":"社區花市","cultural":"modern","objs":["花盆","澆水壺","園藝剪刀","手套","草帽","購物袋"],"points":[{"name":"花盆","x":35.0,"y":35.0,"w":31.0,"h":47.0},{"name":"澆水壺","x":64.0,"y":43.0,"w":25.0,"h":45.0},{"name":"園藝剪刀","x":79.0,"y":76.0,"w":21.0,"h":17.0},{"name":"手套","x":61.0,"y":86.0,"w":28.0,"h":20.0},{"name":"草帽","x":25.0,"y":80.0,"w":48.0,"h":32.0},{"name":"購物袋","x":88.0,"y":37.0,"w":24.0,"h":39.0}],"photo":"assets-v9/M4.webp","empty":"assets-v9/M4_empty.webp","stimulus_version":"composited-v9-pilot"},{"id":"T4","kind":"T4","label":"採集整理區","cultural":"traditional","objs":["背簍","植物束","木盤","容器","採集工具","布袋"],"points":[{"name":"背簍","x":21.0,"y":39.0,"w":28.0,"h":68.0},{"name":"植物束","x":37.0,"y":69.0,"w":35.0,"h":29.0},{"name":"木盤","x":76.0,"y":65.0,"w":31.0,"h":28.0},{"name":"容器","x":62.0,"y":31.0,"w":22.0,"h":33.0},{"name":"採集工具","x":25.0,"y":84.0,"w":32.0,"h":20.0},{"name":"布袋","x":84.0,"y":83.0,"w":27.0,"h":33.0}],"photo":"assets-v9/T4.webp","empty":"assets-v9/T4_empty.webp","stimulus_version":"composited-v9-pilot"}];
 // Photo-specific scoring anchors. These are hand-labelled pilot centers, not validated ground truth.
@@ -63,7 +77,7 @@ function viewScale(zoom){return VIEW_FAR_LIMIT/Number(zoom);}
 function sceneHtml(sc,locs,zoom=1,opts={}){const show=opts.showItems!==false;const bg=opts.empty?sc.empty:sc.photo;return `<div class="scene-layer" style="transform:scale(${viewScale(zoom)})"><img class="photo-stage" src="${bg}" alt="場景圖片" onerror="this.dataset.loadError='1';console.error('NEMA-V 圖片讀取失敗:',this.src)">${show?itemsHtml(sc,locs):''}</div>`}
 function layout(id){const sc=scenes.find(s=>s.id===id);return {...sc,locs:[0,1,2,3,4,5],zoom:1.16}}
 // Research safety: fail closed when any image in the stimulus library is missing.
-const NEMAV_BUILD="v10.0.0";
+const NEMAV_BUILD="v11.0.0";
 const ASSET_NAMES=(()=>{
  const names=[];
  for(const sc of scenes){
@@ -95,7 +109,7 @@ async function checkStimulusAssets(){
  if(status){
   status.className='asset-status '+(verifiedAssets?'ok':'error');
   status.textContent=verifiedAssets
-   ? '圖片檢查通過：160／160 張皆可載入，可以開始試測。版本 v10。'
+   ? '圖片檢查通過：160／160 張皆可載入，可以開始試測。版本 v11。'
    : `圖片缺少或路徑錯誤：${missingAssetNames.length}／160 張。請勿施測。\n缺少：${missingAssetNames.slice(0,18).join(', ')}${missingAssetNames.length>18?' …':''}\n請將完整 nema-v/assets-v9 資料夾上傳至 GitHub Pages 的發布分支。`;
  }
  if(startButton)startButton.disabled=!verifiedAssets;
@@ -128,7 +142,7 @@ function encode(){
 }
 
 function beginRecall(){state.idx=0;recallScene()}
-function recallScene(){state.phase='background';if(state.idx>=state.order.length)return completePhase();let sc=state.order[state.idx];state.current=sc;state.sites=snapPoints(sc);state.answers={id:sc.id,scene_set:state.sceneSet,stimulus_version:'composited-v10-pilot',phase:phaseMode,encZoom:sc.zoom,encLocs:sc.locs,object_names:sc.objs,object_centers:sc.points.map(p=>({x:p.x,y:p.y})),sites:state.sites,started_at:now()};state.background=null;state.zoom=1;state.selectedObj=null;state.recognition=null;persist();renderBg()}
+function recallScene(){state.phase='background';if(state.idx>=state.order.length)return completePhase();let sc=state.order[state.idx];state.current=sc;state.sites=snapPoints(sc);state.answers={id:sc.id,scene_set:state.sceneSet,stimulus_version:'composited-v11-ui-pilot',phase:phaseMode,encZoom:sc.zoom,encLocs:sc.locs,object_names:sc.objs,object_centers:sc.points.map(p=>({x:p.x,y:p.y})),sites:state.sites,started_at:now()};state.background=null;state.zoom=zoomFromSlider(.5);state.sliderT=.5;state.selectedObj=null;state.recognition=null;persist();renderBg()}
 function renderBg(){
  const sc=state.current;
  // For each scene, one yes/no question; avoid placing other already-studied scenes in an answer array.
@@ -150,9 +164,12 @@ function answerBackground(yes){
  if(!yes){state.places=null;state.answers.zoom=null;state.answers.locations=null;state.answers.boundary_not_administered=true;state.answers.location_not_administered=true;return goRecognize();}
  goZoom();
 }
-function goZoom(){state.phase='zoom';state.zoom=.73+Math.random()*.54;renderZoom();}
-function renderZoom(){let sc=state.current;set(box(`重建 ${state.idx+1}／${state.order.length}｜場景邊界`,`<p>請調整畫面的遠近，直到它看起來與剛才記住的視野範圍相同。</p><div id="scene">${sceneHtml({...sc,empty:sc.empty},Array(6).fill(null),state.zoom,{empty:true,showItems:false})}</div><div class="sliderwrap"><div class="sliderlabels"><span>較近</span><span>較遠</span></div><input id="zoomslider" type="range" min="0.65" max="1.35" step="0.005" value="${state.zoom}" oninput="changeZoom(this.value)" aria-label="場景較近或較遠"></div><p class="minor">滑桿兩端分別為最近與最遠視角，畫面不會露出背景邊框，也不顯示比例或正確答案。</p><div class="actions"><button onclick="goPlace()">下一步：重建物件位置</button></div>`));}
-function changeZoom(x){state.zoom=Number(x);persist();let layer=document.querySelector('#scene .scene-layer');if(layer)layer.style.transform=`scale(${viewScale(state.zoom)})`;}
+// The visual control starts in the exact middle. Use sinusoidal easing to reduce gain near endpoints.
+// This is a display-control parameter only; the participant never sees numerical values.
+function zoomFromSlider(t){const x=Math.max(0,Math.min(1,Number(t)));return 1.135+0.205*Math.sin(Math.PI*(x-.5));}
+function goZoom(){state.phase='zoom';state.sliderT=.5;state.zoom=zoomFromSlider(.5);renderZoom();}
+function renderZoom(){let sc=state.current;set(box(`重建 ${state.idx+1}／${state.order.length}｜場景邊界`,`<p>請調整畫面的遠近，直到它看起來與剛才記住的視野範圍相同。</p><div id="scene">${sceneHtml({...sc,empty:sc.empty},Array(6).fill(null),state.zoom,{empty:true,showItems:false})}</div><div class="sliderwrap"><div class="sliderlabels"><span>較近</span><span>較遠</span></div><input id="zoomslider" type="range" min="0" max="100" step="1" value="${Math.round((state.sliderT??.5)*100)}" oninput="changeZoom(this.value)" aria-label="場景較近或較遠"></div><p class="minor">拖曳滑桿調整視野，操作時不顯示數字或正確答案。</p><div class="actions"><button onclick="goPlace()">下一步：重建物件位置</button></div>`));}
+function changeZoom(x){state.sliderT=Math.max(0,Math.min(1,Number(x)/100));state.zoom=zoomFromSlider(state.sliderT);persist();const layer=document.querySelector('#scene .scene-layer');if(layer)layer.style.transform=`scale(${viewScale(state.zoom)})`;}
 function goPlace(){state.phase='place';state.answers.zoom=state.zoom;state.answers.zoom_at=now();state.places=Array(6).fill(null);state.selectedObj=0;renderPlace();}
 function itemSprite(sc,i){return `assets-v9/${sc.id}_sprite_${i}.webp`}
 function renderPlace(){
@@ -164,18 +181,30 @@ function renderPlace(){
  <div class="object-tray" data-ui-version="v9">${sc.objs.map((o,i)=>`<button class="object-card ${state.selectedObj===i?'selected':''} ${state.places[i]!==null?'used':''}" data-object="${i}" aria-label="選取${o}"><img src="${itemSprite(sc,i)}" draggable="false" alt=""><span>${o}</span></button>`).join('')}</div>
  <p class="minor" id="place-progress">已放置 ${state.places.filter(v=>v!==null).length}／6 件物品</p>
  <div class="actions"><button id="placeNext" ${state.places.some(p=>p===null)?'disabled':''} onclick="goRecognize()">完成放置，進行再認</button><button class="alt" onclick="state.places=Array(6).fill(null);state.selectedObj=null;renderPlace()">全部重新放置</button></div>
- <p class="photo-note">v10：場景上不顯示定位圈。按下物件卡，點場景任何位置即可放置；也可以拖曳。物件為完整透明圖層；記憶評分仍為試測座標，未完成常模與刺激效度驗證。</p>`));
+ <p class="photo-note">v11：物件選項使用一致尺寸的卡片，放入場景後保留原始大小比例並平滑吸附；不顯示定位圈。透明物件仍為試測素材，個別邊緣須經人工審查。</p>`));
  setupPlace();
 }
 function nearest(x,y){let res=0,dist=Infinity;state.sites.forEach((s,i)=>{let d=(s.x-x)**2+(s.y-y)**2;if(d<dist){dist=d;res=i}});return res}
-function addAt(idx,slot){
+function addAt(idx,slot,dropPoint=null){
  if(idx===null||idx<0||slot<0)return;
+ const before=new Map([...document.querySelectorAll('.placed-object')].map(el=>[Number(el.dataset.placed),el.getBoundingClientRect()]));
  const prior=state.places[idx];const other=state.places.indexOf(slot);
  if(other>=0&&other!==idx)state.places[other]=prior;
  state.places[idx]=slot;
  state.selectedObj=state.places.findIndex(v=>v===null);
  if(state.selectedObj<0)state.selectedObj=null;
  persist();renderPlace();
+ // Animate the object to the snapped position without resampling or blurring the bitmap.
+ requestAnimationFrame(()=>{
+  for(const el of document.querySelectorAll('.placed-object')){
+   const id=Number(el.dataset.placed),dest=el.getBoundingClientRect();
+   const origin=(id===idx&&dropPoint)?{left:dropPoint.x-dest.width/2,top:dropPoint.y-dest.height/2}:before.get(id);
+   if(!origin||typeof el.animate!=='function')continue;
+   const dx=origin.left-dest.left,dy=origin.top-dest.top;
+   if(Math.hypot(dx,dy)<2)continue;
+   el.animate([{transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`},{transform:'translate(-50%,-50%)'}],{duration:165,easing:'cubic-bezier(.22,1,.36,1)'});
+  }
+ });
 }
 function pointToSlot(clientX,clientY){
  const el=$('scene');const r=el.getBoundingClientRect();
@@ -212,7 +241,7 @@ function setupPlace(){
    const d=activeDrag;if(!d||d.pointerId!==ev.pointerId)return;
    const slot=pointToSlot(ev.clientX,ev.clientY);
    const moved=d.moved;activeDrag=null;$('drag-ghost')?.remove();
-   if(moved&&slot!==null){addAt(d.id,slot);return}
+   if(moved&&slot!==null){addAt(d.id,slot,{x:ev.clientX,y:ev.clientY});return}
    state.selectedObj=d.id;renderPlace();
   });
   el.addEventListener('pointercancel',()=>{activeDrag=null;$('drag-ghost')?.remove()});
@@ -244,7 +273,7 @@ if(reconstructed){
  boundaryError=Math.log(state.zoom/state.current.zoom);
  boundaryDirection=state.zoom>state.current.zoom?'wider':state.zoom<state.current.zoom?'closer':'same';
 }
-state.answers.scoring={scoring_version:'composited-v10-pilot',reconstruction_administered:reconstructed,location_correct:locationCorrect,location_correct_items:correct,location_errors_percent:errors,mean_location_error_pct:meanError,swap_pairs:swaps,boundary_log_ratio:boundaryError,boundary_direction:boundaryDirection,background_correct:state.answers.background_correct,integrated_recognition_correct:state.answers.recognition_correct,integrated_lure_type:state.answers.recognition_type,clinical_score_valid:false};
+state.answers.scoring={scoring_version:'composited-v11-ui-pilot',reconstruction_administered:reconstructed,location_correct:locationCorrect,location_correct_items:correct,location_errors_percent:errors,mean_location_error_pct:meanError,swap_pairs:swaps,boundary_log_ratio:boundaryError,boundary_direction:boundaryDirection,background_correct:state.answers.background_correct,integrated_recognition_correct:state.answers.recognition_correct,integrated_lure_type:state.answers.recognition_type,clinical_score_valid:false};
 try{await syncTrial(clone(state.answers),state.idx);state.runs.push(clone(state.answers));state.idx++;persist();recallScene()}catch(e){alert('雲端同步未成功，請確認網路並再次按儲存：'+e.message)}finally{busy=false}}
 
 async function completePhase(){if(phaseMode==='immediate'){
@@ -266,7 +295,7 @@ async function insertRow(table,row){return cloud('/rest/v1/'+table,{method:'POST
 async function initAssessment(){
  const b=activeBattery();if(!A.user())throw Error('請先在首頁登入 Supabase');if(!b?.id)throw Error('請先在首頁選用受試者場次');
  assessment=crypto.randomUUID();
- await insertRow('nemav_sessions',{id:assessment,owner_id:A.user().id,battery_session_id:b.id,stimulus_order:state.order.map(x=>({scene_id:x.id,locations:x.locs,encoding_zoom:x.zoom,scene_set:state.sceneSet,encoding_duration_ms:10000})),stimulus_version:'composited-v10-pilot'});
+ await insertRow('nemav_sessions',{id:assessment,owner_id:A.user().id,battery_session_id:b.id,stimulus_order:state.order.map(x=>({scene_id:x.id,locations:x.locs,encoding_zoom:x.zoom,scene_set:state.sceneSet,encoding_duration_ms:10000})),stimulus_version:'composited-v11-ui-pilot'});
  persist();
 }
 async function syncTrial(r,index){
