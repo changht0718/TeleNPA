@@ -77,29 +77,31 @@ button:disabled{opacity:.55;cursor:not-allowed}
 .object-card img,.drag-ghost img{object-fit:contain!important;filter:none!important}
 .placed-object.active{outline:2px solid rgba(18,111,164,.40);outline-offset:3px}
 @media(max-width:650px){.object-tray{grid-template-columns:repeat(3,minmax(0,1fr))}.object-card{height:118px;min-height:118px}.object-card img{height:74px}}
-</style></head><body><header><h1>NEMA-V｜場景記憶與重建</h1><div style="font-size:12px;opacity:.85;margin-top:5px">介面版本 v19 · 完整繪製選項 · 吸附後回復完整物件</div><small>Scene Memory, Object Selection, Object-Location Binding & Recognition｜TeleNPA 雙階段測試版</small></header><main><div id="app"></div><footer>此版本為互動介面與資料結構原型：編碼使用八張完整場景照片；重建選項使用重新繪製的完整物件圖；吸附後改用場景專用的完整重繪物件圖層（非原照片逐像素相同）；不包含視野邊界調整或獨立背景再認；測試版資料同步至 Supabase；刺激尚未正式驗證或文化審查，不用於臨床計分。</footer></main><script src="../config.js"></script><script src="../shared/auth.js"></script><script>
+</style></head><body><header><h1>NEMA-V｜場景記憶與重建</h1><div style="font-size:12px;opacity:.85;margin-top:5px">介面版本 v20 · 寫實物件 · 自由定位（研究試測）</div><small>Scene Memory, Object Selection, Object-Location Binding & Recognition｜TeleNPA 雙階段測試版</small></header><main><div id="app"></div><footer>此版本為互動介面與資料結構原型：編碼使用八張完整場景照片；重建選項使用重新繪製的完整物件圖；放置時採連續位置紀錄；部分場景已更新為寫實透明物件，其他物件保留完整造型素材（並非原照片逐像素相同）；不包含視野邊界調整或獨立背景再認；測試版資料同步至 Supabase；刺激尚未正式驗證或文化審查，不用於臨床計分。</footer></main><script src="../config.js"></script><script src="../shared/auth.js"></script><script>
 'use strict';
-const scenes=[{"id":"M1","kind":"M1","label":"現代廚房","cultural":"modern","objs":["熱水壺","水果碗","餅乾罐","馬克杯","抹布","砧板"],"points":[{"name":"熱水壺","x":20.72,"y":36.65,"w":23.2,"h":37.57},{"name":"水果碗","x":45.55,"y":41.67,"w":25.48,"h":31.77},{"name":"餅乾罐","x":69.54,"y":39.46,"w":19.48,"h":35.82},{"name":"馬克杯","x":86.29,"y":59.58,"w":18.58,"h":24.49},{"name":"抹布","x":19.65,"y":64.32,"w":32.53,"h":24.4},{"name":"砧板","x":56.22,"y":73.53,"w":58.56,"h":31.58}],"photo":"assets-v19/M1.webp","empty":"assets-v19/M1_empty.webp","stimulus_version":"v19-complete-placed-pilot"},{"id":"T1","kind":"T1","label":"傳統備食區","cultural":"traditional","objs":["石臼","陶鍋","水甕","竹篩","小米","木杵"],"points":[{"name":"石臼","x":18.0,"y":59.0,"w":32.0,"h":40.0},{"name":"陶鍋","x":49.0,"y":32.0,"w":29.0,"h":34.0},{"name":"水甕","x":75.0,"y":32.0,"w":27.0,"h":42.0},{"name":"竹篩","x":80.0,"y":64.0,"w":38.0,"h":31.0},{"name":"小米","x":48.0,"y":79.0,"w":24.0,"h":16.0},{"name":"木杵","x":10.0,"y":49.0,"w":18.0,"h":36.0}],"photo":"assets-v19/T1.webp","empty":"assets-v19/T1_empty.webp","stimulus_version":"v19-complete-placed-pilot"},{"id":"M2","kind":"M2","label":"書桌","cultural":"modern","objs":["檯燈","筆筒","盆栽","文件夾","筆記本","眼鏡"],"points":[{"name":"檯燈","x":24.27,"y":26.84,"w":39.71,"h":53.68},{"name":"筆筒","x":51.1,"y":40.42,"w":14.92,"h":33.15},{"name":"盆栽","x":77.8,"y":39.13,"w":39.71,"h":44.38},{"name":"文件夾","x":30.52,"y":67.45,"w":36.74,"h":31.22},{"name":"筆記本","x":56.73,"y":76.93,"w":35.7,"h":41.53},{"name":"眼鏡","x":77.62,"y":65.24,"w":30.66,"h":26.06}],"photo":"assets-v19/M2.webp","empty":"assets-v19/M2_empty.webp","stimulus_version":"v19-complete-placed-pilot"},{"id":"T2","kind":"T2","label":"編織工作區","cultural":"traditional","objs":["織具","線團","竹籃","梭具","織帶","工具盒"],"points":[{"name":"織具","x":58.0,"y":39.0,"w":39.0,"h":71.0},{"name":"線團","x":24.0,"y":76.0,"w":26.0,"h":25.0},{"name":"竹籃","x":17.0,"y":56.0,"w":30.0,"h":40.0},{"name":"梭具","x":54.0,"y":76.0,"w":27.0,"h":16.0},{"name":"織帶","x":76.0,"y":81.0,"w":37.0,"h":23.0},{"name":"工具盒","x":87.0,"y":56.0,"w":22.0,"h":32.0}],"photo":"assets-v19/T2.webp","empty":"assets-v19/T2_empty.webp","stimulus_version":"v19-complete-placed-pilot"},{"id":"M3","kind":"M3","label":"都市玄關","cultural":"modern","objs":["帽子","外套","背包","水壺","雨傘","收納籃"],"points":[{"name":"帽子","x":29.0,"y":30.0,"w":25.0,"h":34.0},{"name":"外套","x":57.0,"y":42.0,"w":18.0,"h":59.0},{"name":"背包","x":25.0,"y":75.0,"w":27.0,"h":40.0},{"name":"水壺","x":40.0,"y":82.0,"w":10.0,"h":30.0},{"name":"雨傘","x":70.0,"y":37.0,"w":12.0,"h":51.0},{"name":"收納籃","x":78.0,"y":78.0,"w":23.0,"h":28.0}],"photo":"assets-v19/M3.webp","empty":"assets-v19/M3_empty.webp","stimulus_version":"v19-complete-placed-pilot"},{"id":"T3","kind":"T3","label":"山屋入口","cultural":"traditional","objs":["背簍","披布","手杖","草鞋","編籃","木碗"],"points":[{"name":"背簍","x":20.0,"y":48.0,"w":31.0,"h":48.0},{"name":"披布","x":41.0,"y":24.0,"w":30.0,"h":38.0},{"name":"手杖","x":66.0,"y":36.0,"w":12.0,"h":55.0},{"name":"草鞋","x":62.0,"y":83.0,"w":25.0,"h":25.0},{"name":"編籃","x":81.0,"y":64.0,"w":34.0,"h":34.0},{"name":"木碗","x":41.0,"y":65.0,"w":22.0,"h":20.0}],"photo":"assets-v19/T3.webp","empty":"assets-v19/T3_empty.webp","stimulus_version":"v19-complete-placed-pilot"},{"id":"M4","kind":"M4","label":"社區花市","cultural":"modern","objs":["花盆","澆水壺","園藝剪刀","手套","草帽","購物袋"],"points":[{"name":"花盆","x":35.0,"y":35.0,"w":31.0,"h":47.0},{"name":"澆水壺","x":64.0,"y":43.0,"w":25.0,"h":45.0},{"name":"園藝剪刀","x":79.0,"y":76.0,"w":21.0,"h":17.0},{"name":"手套","x":61.0,"y":86.0,"w":28.0,"h":20.0},{"name":"草帽","x":25.0,"y":80.0,"w":48.0,"h":32.0},{"name":"購物袋","x":88.0,"y":37.0,"w":24.0,"h":39.0}],"photo":"assets-v19/M4.webp","empty":"assets-v19/M4_empty.webp","stimulus_version":"v19-complete-placed-pilot"},{"id":"T4","kind":"T4","label":"採集整理區","cultural":"traditional","objs":["背簍","植物束","木盤","容器","採集工具","布袋"],"points":[{"name":"背簍","x":21.0,"y":39.0,"w":28.0,"h":68.0},{"name":"植物束","x":37.0,"y":69.0,"w":35.0,"h":29.0},{"name":"木盤","x":76.0,"y":65.0,"w":31.0,"h":28.0},{"name":"容器","x":62.0,"y":31.0,"w":22.0,"h":33.0},{"name":"採集工具","x":25.0,"y":84.0,"w":32.0,"h":20.0},{"name":"布袋","x":84.0,"y":83.0,"w":27.0,"h":33.0}],"photo":"assets-v19/T4.webp","empty":"assets-v19/T4_empty.webp","stimulus_version":"v19-complete-placed-pilot"}];
+const scenes=[{"id":"M1","kind":"M1","label":"現代廚房","cultural":"modern","objs":["熱水壺","水果碗","餅乾罐","馬克杯","抹布","砧板"],"points":[{"name":"熱水壺","x":20.72,"y":36.65,"w":23.2,"h":37.57},{"name":"水果碗","x":45.55,"y":41.67,"w":25.48,"h":31.77},{"name":"餅乾罐","x":69.54,"y":39.46,"w":19.48,"h":35.82},{"name":"馬克杯","x":86.29,"y":59.58,"w":18.58,"h":24.49},{"name":"抹布","x":19.65,"y":64.32,"w":32.53,"h":24.4},{"name":"砧板","x":56.22,"y":73.53,"w":58.56,"h":31.58}],"photo":"assets-v20/M1.webp","empty":"assets-v20/M1_empty.webp","stimulus_version":"v20-free-placement-pilot"},{"id":"T1","kind":"T1","label":"傳統備食區","cultural":"traditional","objs":["石臼","陶鍋","水甕","竹篩","小米","木杵"],"points":[{"name":"石臼","x":18.0,"y":59.0,"w":32.0,"h":40.0},{"name":"陶鍋","x":49.0,"y":32.0,"w":29.0,"h":34.0},{"name":"水甕","x":75.0,"y":32.0,"w":27.0,"h":42.0},{"name":"竹篩","x":80.0,"y":64.0,"w":38.0,"h":31.0},{"name":"小米","x":48.0,"y":79.0,"w":24.0,"h":16.0},{"name":"木杵","x":10.0,"y":49.0,"w":18.0,"h":36.0}],"photo":"assets-v20/T1.webp","empty":"assets-v20/T1_empty.webp","stimulus_version":"v20-free-placement-pilot"},{"id":"M2","kind":"M2","label":"書桌","cultural":"modern","objs":["檯燈","筆筒","盆栽","文件夾","筆記本","眼鏡"],"points":[{"name":"檯燈","x":24.27,"y":26.84,"w":39.71,"h":53.68},{"name":"筆筒","x":51.1,"y":40.42,"w":14.92,"h":33.15},{"name":"盆栽","x":77.8,"y":39.13,"w":39.71,"h":44.38},{"name":"文件夾","x":30.52,"y":67.45,"w":36.74,"h":31.22},{"name":"筆記本","x":56.73,"y":76.93,"w":35.7,"h":41.53},{"name":"眼鏡","x":77.62,"y":65.24,"w":30.66,"h":26.06}],"photo":"assets-v20/M2.webp","empty":"assets-v20/M2_empty.webp","stimulus_version":"v20-free-placement-pilot"},{"id":"T2","kind":"T2","label":"編織工作區","cultural":"traditional","objs":["織具","線團","竹籃","梭具","織帶","工具盒"],"points":[{"name":"織具","x":58.0,"y":39.0,"w":39.0,"h":71.0},{"name":"線團","x":24.0,"y":76.0,"w":26.0,"h":25.0},{"name":"竹籃","x":17.0,"y":56.0,"w":30.0,"h":40.0},{"name":"梭具","x":54.0,"y":76.0,"w":27.0,"h":16.0},{"name":"織帶","x":76.0,"y":81.0,"w":37.0,"h":23.0},{"name":"工具盒","x":87.0,"y":56.0,"w":22.0,"h":32.0}],"photo":"assets-v20/T2.webp","empty":"assets-v20/T2_empty.webp","stimulus_version":"v20-free-placement-pilot"},{"id":"M3","kind":"M3","label":"都市玄關","cultural":"modern","objs":["帽子","外套","背包","水壺","雨傘","收納籃"],"points":[{"name":"帽子","x":31.3,"y":16.5,"w":25.0,"h":28.0},{"name":"外套","x":48.0,"y":36.0,"w":22.0,"h":58.0},{"name":"背包","x":25.7,"y":58.0,"w":30.0,"h":37.0},{"name":"水壺","x":40.6,"y":64.0,"w":9.5,"h":29.0},{"name":"雨傘","x":63.3,"y":31.8,"w":13.0,"h":58.0},{"name":"收納籃","x":67.5,"y":64.0,"w":28.0,"h":24.0}],"photo":"assets-v20/M3.webp","empty":"assets-v20/M3_empty.webp","stimulus_version":"v20-free-placement-pilot"},{"id":"T3","kind":"T3","label":"山屋入口","cultural":"traditional","objs":["背簍","披布","手杖","草鞋","編籃","木碗"],"points":[{"name":"背簍","x":20.0,"y":48.0,"w":31.0,"h":48.0},{"name":"披布","x":41.0,"y":24.0,"w":30.0,"h":38.0},{"name":"手杖","x":66.0,"y":36.0,"w":12.0,"h":55.0},{"name":"草鞋","x":62.0,"y":83.0,"w":25.0,"h":25.0},{"name":"編籃","x":81.0,"y":64.0,"w":34.0,"h":34.0},{"name":"木碗","x":41.0,"y":65.0,"w":22.0,"h":20.0}],"photo":"assets-v20/T3.webp","empty":"assets-v20/T3_empty.webp","stimulus_version":"v20-free-placement-pilot"},{"id":"M4","kind":"M4","label":"社區花市","cultural":"modern","objs":["花盆","澆水壺","園藝剪刀","手套","草帽","購物袋"],"points":[{"name":"花盆","x":35.0,"y":35.0,"w":31.0,"h":47.0},{"name":"澆水壺","x":64.0,"y":43.0,"w":25.0,"h":45.0},{"name":"園藝剪刀","x":79.0,"y":76.0,"w":21.0,"h":17.0},{"name":"手套","x":61.0,"y":86.0,"w":28.0,"h":20.0},{"name":"草帽","x":25.0,"y":80.0,"w":48.0,"h":32.0},{"name":"購物袋","x":88.0,"y":37.0,"w":24.0,"h":39.0}],"photo":"assets-v20/M4.webp","empty":"assets-v20/M4_empty.webp","stimulus_version":"v20-free-placement-pilot"},{"id":"T4","kind":"T4","label":"採集整理區","cultural":"traditional","objs":["背簍","植物束","木盤","容器","採集工具","布袋"],"points":[{"name":"背簍","x":21.0,"y":39.0,"w":28.0,"h":68.0},{"name":"植物束","x":37.0,"y":69.0,"w":35.0,"h":29.0},{"name":"木盤","x":76.0,"y":65.0,"w":31.0,"h":28.0},{"name":"容器","x":62.0,"y":31.0,"w":22.0,"h":33.0},{"name":"採集工具","x":25.0,"y":84.0,"w":32.0,"h":20.0},{"name":"布袋","x":84.0,"y":83.0,"w":27.0,"h":33.0}],"photo":"assets-v20/T4.webp","empty":"assets-v20/T4_empty.webp","stimulus_version":"v20-free-placement-pilot"}];
 const FOIL_LIBRARY={"M1":[{"source":"M2","source_index":1,"name":"筆筒","file":"M1_foil_0.webp"},{"source":"M3","source_index":3,"name":"水壺","file":"M1_foil_1.webp"},{"source":"M4","source_index":2,"name":"園藝剪刀","file":"M1_foil_2.webp"},{"source":"T1","source_index":1,"name":"陶鍋","file":"M1_foil_3.webp"}],"M2":[{"source":"M1","source_index":3,"name":"馬克杯","file":"M2_foil_0.webp"},{"source":"M3","source_index":3,"name":"水壺","file":"M2_foil_1.webp"},{"source":"M4","source_index":4,"name":"草帽","file":"M2_foil_2.webp"},{"source":"T2","source_index":5,"name":"工具盒","file":"M2_foil_3.webp"}],"M3":[{"source":"M1","source_index":3,"name":"馬克杯","file":"M3_foil_0.webp"},{"source":"M2","source_index":3,"name":"文件夾","file":"M3_foil_1.webp"},{"source":"M4","source_index":5,"name":"購物袋","file":"M3_foil_2.webp"},{"source":"T3","source_index":2,"name":"手杖","file":"M3_foil_3.webp"}],"M4":[{"source":"M1","source_index":1,"name":"水果碗","file":"M4_foil_0.webp"},{"source":"M2","source_index":2,"name":"盆栽","file":"M4_foil_1.webp"},{"source":"M3","source_index":4,"name":"雨傘","file":"M4_foil_2.webp"},{"source":"T4","source_index":1,"name":"植物束","file":"M4_foil_3.webp"}],"T1":[{"source":"T2","source_index":5,"name":"工具盒","file":"T1_foil_0.webp"},{"source":"T3","source_index":5,"name":"木碗","file":"T1_foil_1.webp"},{"source":"T4","source_index":4,"name":"採集工具","file":"T1_foil_2.webp"},{"source":"M1","source_index":1,"name":"水果碗","file":"T1_foil_3.webp"}],"T2":[{"source":"T1","source_index":3,"name":"竹篩","file":"T2_foil_0.webp"},{"source":"T3","source_index":5,"name":"木碗","file":"T2_foil_1.webp"},{"source":"T4","source_index":1,"name":"植物束","file":"T2_foil_2.webp"},{"source":"M2","source_index":3,"name":"文件夾","file":"T2_foil_3.webp"}],"T3":[{"source":"T1","source_index":1,"name":"陶鍋","file":"T3_foil_0.webp"},{"source":"T2","source_index":5,"name":"工具盒","file":"T3_foil_1.webp"},{"source":"T4","source_index":5,"name":"布袋","file":"T3_foil_2.webp"},{"source":"M3","source_index":4,"name":"雨傘","file":"T3_foil_3.webp"}],"T4":[{"source":"T1","source_index":5,"name":"木杵","file":"T4_foil_0.webp"},{"source":"T2","source_index":3,"name":"梭具","file":"T4_foil_1.webp"},{"source":"T3","source_index":3,"name":"草鞋","file":"T4_foil_2.webp"},{"source":"M4","source_index":2,"name":"園藝剪刀","file":"T4_foil_3.webp"}]};
 
 // Photo-specific scoring anchors. These are hand-labelled pilot centers, not validated ground truth.
 const slots=[];const configs=[];
-function snapPoints(sc){let used=sc.points.map(o=>({x:o.x,y:o.y}));let extras=[{x:8,y:10},{x:50,y:10},{x:92,y:11},{x:8,y:91},{x:50,y:91},{x:92,y:91},{x:50,y:46},{x:9,y:43},{x:91,y:45}];for(let e of extras){if(used.length>=12)break;if(used.every(x=>Math.hypot(x.x-e.x,x.y-e.y)>13))used.push(e)}for(let e of extras){if(used.length>=12)break;used.push({...e})}return used.slice(0,12)}
+// No hidden target-based snap sites. All response positions are independent continuous coordinates.
+function snapPoints(_sc){return []}
 const $=id=>document.getElementById(id);const shuffle=a=>{let c=[...a];for(let i=c.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[c[i],c[j]]=[c[j],c[i]];}return c};
 const clone=x=>JSON.parse(JSON.stringify(x));const now=()=>new Date().toISOString();
 let state={phase:'intro',order:[],idx:0,seen:[],runs:[],started:now(),current:null,selectedObj:null,answers:{},zoom:1,background:null,recognition:null};
 const app=$('app');
 function set(html){app.innerHTML=html;window.scrollTo({top:0,behavior:'instant'});}function box(title,inner){return `<section class="card"><h2>${title}</h2>${inner}</section>`}
 function bkg(kind,theme=0){let sc=scenes.find(t=>t.id===kind);return `<img class="photo-stage" src="${sc.empty}" alt="背景示意">`}
-function itemsHtml(sc,locs,customObjects=sc.objs){return customObjects.map((o,i)=>{if(locs[i]===null||locs[i]===undefined)return '';const p=state.sites?.[locs[i]]||sc.points[i];return `<span class="item" data-index="${i}" style="left:${p.x}%;top:${p.y}%"><img src="assets-v19/placed/${sc.id}_${i}.svg" alt=""></span>`}).join('')}
+function itemsHtml(sc,locs,customObjects=sc.objs){return customObjects.map((o,i)=>{if(locs[i]===null||locs[i]===undefined)return '';const p=state.sites?.[locs[i]]||sc.points[i];return `<span class="item" data-index="${i}" style="left:${p.x}%;top:${p.y}%"><img src="assets-v20/placed/${sc.id}_${i}.svg" alt=""></span>`}).join('')}
 // Full frame shown at native scale: no BE zoom or slider in v16.
 function viewScale(_unused){return 1;}
 function sceneHtml(sc,locs,zoom=1,opts={}){const show=opts.showItems!==false;const bg=opts.empty?sc.empty:sc.photo;return `<div class="scene-layer" style="transform:scale(${viewScale(zoom)})"><img class="photo-stage" src="${bg}" alt="場景圖片" onerror="this.dataset.loadError='1';console.error('NEMA-V 圖片讀取失敗:',this.src)">${show?itemsHtml(sc,locs):''}</div>`}
 function layout(id){const sc=scenes.find(s=>s.id===id);return {...sc,locs:[0,1,2,3,4,5],zoom:1}}
 // Research safety: fail closed when any image in the stimulus library is missing.
-const NEMAV_BUILD="v19.0.0";
+const NEMAV_BUILD="v20.0.0";
 const ASSET_NAMES=(()=>{
  const files=[];
+ for(const n of ["帽子", "外套", "雨傘", "背包", "水壺", "收納籃", "購物袋", "手杖", "熱水壺", "水果碗", "餅乾罐", "馬克杯", "抹布", "砧板", "檯燈", "筆筒", "盆栽", "文件夾", "筆記本", "眼鏡"])files.push('realistic/'+encodeURIComponent(n)+'.webp');
  for(const sc of scenes){
   files.push(sc.id+'.webp',sc.id+'_empty.webp');
   for(const kind of ['background','location','object'])files.push(`${sc.id}_${kind}.webp`);
@@ -115,7 +117,7 @@ const checkOneAsset=(filename)=>new Promise(resolve=>{
  const img=new Image();
  img.onload=()=>resolve(img.naturalWidth>0&&img.naturalHeight>0);
  img.onerror=()=>resolve(false);
- img.src='assets-v19/'+filename;
+ img.src='assets-v20/'+filename;
 });
 async function checkStimulusAssets(){
  verifiedAssets=false;missingAssetNames=[];
@@ -130,8 +132,8 @@ async function checkStimulusAssets(){
  if(status){
   status.className='asset-status '+(verifiedAssets?'ok':'error');
   status.textContent=verifiedAssets
-   ? `圖片檢查通過：${ASSET_NAMES.length}／${ASSET_NAMES.length} 張皆可載入，可以開始試測。版本 v19（完整重繪／乾淨吸附）。`
-   : `圖片缺少或路徑錯誤：${missingAssetNames.length}／${ASSET_NAMES.length} 張。請勿施測。\n缺少：${missingAssetNames.slice(0,18).join(', ')}${missingAssetNames.length>18?' …':''}\n請將完整 nema-v/assets-v19 資料夾上傳至 GitHub Pages 的發布分支。`;
+   ? `圖片檢查通過：${ASSET_NAMES.length}／${ASSET_NAMES.length} 個檔案可載入。版本 v20（寫實物件／自由定位試測）。`
+   : `圖片缺少或路徑錯誤：${missingAssetNames.length}／${ASSET_NAMES.length} 張。請勿施測。\n缺少：${missingAssetNames.slice(0,18).join(', ')}${missingAssetNames.length>18?' …':''}\n請將完整 nema-v/assets-v20 資料夾上傳至 GitHub Pages 的發布分支。`;
  }
  if(startButton)startButton.disabled=!verifiedAssets;
 }
@@ -142,7 +144,7 @@ function nextEncoded_DISABLED(){
  }
  state.idx++;encode();
 }
-function initial(){state.phase='intro';set(box('NEMA-V｜場景記憶與物件重建（v19）',`<p>依照 TeleNPA 首頁選定圖片組 A／B 或完整施測。每張完整場景編碼 10 秒，沒有倒數。</p><p>回憶階段：<strong>整組物件選取與位置重建 → 整組四選一場景再認</strong>。每張場景有 6 件曾出現的物品以及 4 件未在該場景出現的干擾物品；請只選記得的，不需要放滿六件。</p><p class="notice">不包含獨立背景再認、Boundary Extension、視角調整或角度誘餌。所用圖片、干擾物與位置鍵仍是研究試測素材；尚不可用於正式臨床計分。</p><div id="asset-status" class="asset-status">正在檢查刺激圖片…</div><div class="actions"><button id="begin-assessment" disabled onclick="start()">開始新場次</button><button class="alt" onclick="checkStimulusAssets()">重新檢查圖片</button></div>`));checkStimulusAssets();}
+function initial(){state.phase='intro';set(box('NEMA-V｜場景記憶與物件重建（v20）',`<p>依照 TeleNPA 首頁選定圖片組 A／B 或完整施測。每張完整場景編碼 10 秒，沒有倒數。</p><p>回憶階段：<strong>整組物件選取與位置重建 → 整組四選一場景再認</strong>。每張場景有 6 件曾出現的物品以及 4 件未在該場景出現的干擾物品；請只選記得的，不需要放滿六件。</p><p class="notice">不包含獨立背景再認、Boundary Extension、視角調整或角度誘餌。所用圖片、干擾物與位置鍵仍是研究試測素材；尚不可用於正式臨床計分。</p><div id="asset-status" class="asset-status">正在檢查刺激圖片…</div><div class="actions"><button id="begin-assessment" disabled onclick="start()">開始新場次</button><button class="alt" onclick="checkStimulusAssets()">重新檢查圖片</button></div>`));checkStimulusAssets();}
 async function start(){if(busy)return;if(!verifiedAssets){alert('圖片資產尚未通過完整檢查，不能開始施測。');return;}busy=true;const selectedSet=['a','b','both'].includes(protocol()?.nemav_scene_set)?protocol().nemav_scene_set:'both';state.sceneSet=selectedSet;state.order=shuffle((selectedSet==='a'?['M1','M2','M3','M4']:selectedSet==='b'?['T1','T2','T3','T4']:['M1','T1','M2','T2','M3','T3','M4','T4']).map(layout));state.seen=[];state.runs=[];state.idx=0;state.started=now();try{phaseMode='immediate';immediateEnd=null;await initAssessment();encode()}catch(e){alert('無法建立 Supabase 場次：'+e.message);initial()}finally{busy=false}}
 let encodingTimeout=null,encodingToken=0;
 function stopEncodingTimer(){if(encodingTimeout)clearTimeout(encodingTimeout);encodingTimeout=null;encodingToken++;}
@@ -167,7 +169,7 @@ function beginRecall(){
  runStage();
 }
 function activateTrial(){
- const sc=state.order[state.idx];state.current=sc;state.answers=state.trials[state.idx];state.sites=snapPoints(sc);state.answers.sites=state.sites;
+ const sc=state.order[state.idx];state.current=sc;state.answers=state.trials[state.idx];state.sites=[];state.answers.placement_mode="continuous-v20";
  state.zoom=1;state.places=Array.isArray(state.answers.locations)?clone(state.answers.locations):Array(10).fill(null);
  state.selectedObj=null;state.recognition=null;
  if(!Array.isArray(state.answers.object_choices)||state.answers.object_choices.length!==10){
@@ -195,37 +197,50 @@ function finishPlacement(){
  state.answers.selected_count=n;
  state.answers.place_at=now();state.idx++;persist();runStage();
 }
-function itemSprite(sc,i){return `assets-v19/placed/${sc.id}_${i}.svg`}
 function objName(sc,i){return i<6?sc.objs[i]:FOIL_LIBRARY[sc.id][i-6].name}
-// Both palette and placed layers use complete, purpose-drawn SVGs. Original encoding photographs are unchanged.
-function paletteSprite(sc,i){return 'assets-v19/illustrations/'+encodeURIComponent(objName(sc,i))+'.svg'}
-function objectDimensions(sc,i){return i<6?sc.points[i]:{w:19,h:23}}
+// The same asset is displayed for all placements. No visual correctness hints.
+const PHOTO_REAL_NAMES=new Set(["帽子", "外套", "雨傘", "背包", "水壺", "收納籃", "購物袋", "手杖", "熱水壺", "水果碗", "餅乾罐", "馬克杯", "抹布", "砧板", "檯燈", "筆筒", "盆栽", "文件夾", "筆記本", "眼鏡"]);
+function objectAsset(sc,i){const name=objName(sc,i);return PHOTO_REAL_NAMES.has(name)?'assets-v20/realistic/'+encodeURIComponent(name)+'.webp':'assets-v20/illustrations/'+encodeURIComponent(name)+'.svg'}
+function itemSprite(sc,i){return objectAsset(sc,i)}
+function paletteSprite(sc,i){return objectAsset(sc,i)}
+function objectDimensions(sc,i){return i<6?sc.points[i]:{
+  w:['雨傘','手杖','水壺'].includes(objName(sc,i))?13:23,
+  h:['雨傘','手杖'].includes(objName(sc,i))?45:24
+}}
 function renderPlace(){
  const sc=state.current,placed=state.places.filter(v=>v!==null).length;
  const sorted=state.answers.object_choices;
  set(box(`物件重建 ${state.idx+1}／${state.order.length}`,
- `<p>下方有十件物品，其中只有部分曾出現在這張場景。<strong>請選擇記得的物件並放回記憶中的位置。</strong>不必放滿六件；如不記得，也可不放。</p>
+ `<p>下方有十件物品，其中只有部分曾出現在這張場景。<strong>請選擇記得的物件，放回記憶中的位置（可以放在場景任何位置）。</strong>不必放滿六件；如不記得，也可不放。</p>
  <div id="scene" class="placing">${sceneHtml(sc,Array(6).fill(null),1,{empty:true,showItems:false})}
- <div id="objects-layer" class="scene-layer">${state.places.map((slot,i)=>{if(slot===null)return '';const p=objectDimensions(sc,i),pos=state.sites[slot];return `<div class="placed-object ${state.selectedObj===i?'active':''}" data-placed="${i}" style="left:${pos.x}%;top:${pos.y}%;width:${p.w}%;height:${p.h}%"><img src="${itemSprite(sc,i)}" draggable="false" alt="${objName(sc,i)}"></div>`}).join('')}</div></div>
- <div class="object-tray" data-ui-version="v19">${sorted.map(code=>{const i=Number(code.slice(1))+(code[0]==='f'?6:0),o=objName(sc,i);return `<button class="object-card ${state.selectedObj===i?'selected':''} ${state.places[i]!==null?'used':''}" data-object="${i}" aria-label="${o}，${state.places[i]!==null?'已放置':'未放置'}"><img src="${paletteSprite(sc,i)}" draggable="false" alt=""><span>${o}</span></button>`}).join('')}</div>
+ <div id="objects-layer" class="scene-layer">${state.places.map((slot,i)=>{if(slot===null)return '';const p=objectDimensions(sc,i),pos=slot;return `<div class="placed-object ${state.selectedObj===i?'active':''}" data-placed="${i}" style="left:${pos.x}%;top:${pos.y}%;width:${p.w}%;height:${p.h}%"><img src="${itemSprite(sc,i)}" draggable="false" alt="${objName(sc,i)}"></div>`}).join('')}</div></div>
+ <div class="object-tray" data-ui-version="v20">${sorted.map(code=>{const i=Number(code.slice(1))+(code[0]==='f'?6:0),o=objName(sc,i);return `<button class="object-card ${state.selectedObj===i?'selected':''} ${state.places[i]!==null?'used':''}" data-object="${i}" aria-label="${o}，${state.places[i]!==null?'已放置':'未放置'}"><img src="${paletteSprite(sc,i)}" draggable="false" alt=""><span>${o}</span></button>`}).join('')}</div>
  <p class="minor" id="place-progress">已選擇並放置 ${placed} 件物品（最多六件，可少於六件）</p>
  <div class="actions"><button onclick="finishPlacement()">完成本題</button><button class="alt" onclick="removeSelectedObject()" ${state.selectedObj===null?'disabled':''}>移除選定物件</button><button class="alt" onclick="state.places=Array(10).fill(null);state.selectedObj=null;renderPlace()">全部重新放置</button></div>
- <p class="photo-note">點一下物件再點場景，或直接拖曳；放置後可再次移動。這裡不顯示哪些物件為干擾項，也不告知是否正確。</p>`));
+ <p class="photo-note">點一下物件再點場景，或直接拖曳；位置不會吸附到預設答案，放置後可再次移動。這裡不顯示哪些物件為干擾項，也不告知是否正確。</p>`));
  setupPlace();
 }
 function removeSelectedObject(){
  if(state.selectedObj===null)return;
  state.places[state.selectedObj]=null;state.selectedObj=null;persist();renderPlace();
 }
-function nearest(x,y){let res=0,dist=Infinity;state.sites.forEach((s,i)=>{let d=(s.x-x)**2+(s.y-y)**2;if(d<dist){dist=d;res=i}});return res}
-function addAt(idx,slot,dropPoint=null){
- if(idx===null||idx<0||idx>9||slot<0)return;
- const before=new Map([...document.querySelectorAll('.placed-object')].map(el=>[Number(el.dataset.placed),el.getBoundingClientRect()]));
- const prior=state.places[idx],other=state.places.indexOf(slot);
+function clamp(v,min,max){return Math.max(min,Math.min(max,v))}
+function screenToScene(clientX,clientY,idx){
+ const el=$('scene'),r=el.getBoundingClientRect();
+ if(!r||clientX<r.left||clientX>r.right||clientY<r.top||clientY>r.bottom)return null;
+ const d=objectDimensions(state.current,idx);
+ // The full silhouette must remain visible. This still permits placement on any hook,
+ // including the rightmost hook, without using hidden target anchors.
+ const mx=Math.min(49,Math.max(2,d.w/2)),my=Math.min(49,Math.max(2,d.h/2));
+ return {x:+clamp((clientX-r.left)/r.width*100,mx,100-mx).toFixed(2),
+         y:+clamp((clientY-r.top)/r.height*100,my,100-my).toFixed(2)};
+}
+function addAt(idx,point,dropPoint=null){
+ if(idx===null||idx<0||idx>9||!point)return;
  const count=state.places.filter(x=>x!==null).length;
- if(prior===null&&other<0&&count>=6){alert('最多放置六件物品。若要更改，請先移除一件或放到已佔用的位置。');return}
- if(other>=0&&other!==idx)state.places[other]=prior;
- state.places[idx]=slot;
+ if(state.places[idx]===null&&count>=6){alert('最多放置六件物品。請先移除一件，再放入另一件。');return}
+ const before=new Map([...document.querySelectorAll('.placed-object')].map(el=>[Number(el.dataset.placed),el.getBoundingClientRect()]));
+ state.places[idx]=point;
  state.selectedObj=null;persist();renderPlace();
  requestAnimationFrame(()=>{
   for(const el of document.querySelectorAll('.placed-object')){
@@ -234,16 +249,9 @@ function addAt(idx,slot,dropPoint=null){
    if(!origin||typeof el.animate!=='function')continue;
    const dx=origin.left-dest.left,dy=origin.top-dest.top;
    if(Math.hypot(dx,dy)<2)continue;
-   el.animate([{transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`},{transform:'translate(-50%,-50%)'}],{duration:165,easing:'cubic-bezier(.22,1,.36,1)'});
+   el.animate([{transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`},{transform:'translate(-50%,-50%)'}],{duration:170,easing:'cubic-bezier(.22,1,.36,1)'});
   }
  });
-}
-function pointToSlot(clientX,clientY){
- const el=$('scene');const r=el.getBoundingClientRect();
- if(!r||clientX<r.left||clientX>r.right||clientY<r.top||clientY>r.bottom)return null;
- let x=(clientX-r.left)/r.width*100,y=(clientY-r.top)/r.height*100;
- x=(x-50)/viewScale(state.zoom)+50;y=(y-50)/viewScale(state.zoom)+50;
- return nearest(x,y);
 }
 let activeDrag=null;
 function setupPlace(){
@@ -271,9 +279,9 @@ function setupPlace(){
   });
   el.addEventListener('pointerup',ev=>{
    const d=activeDrag;if(!d||d.pointerId!==ev.pointerId)return;
-   const slot=pointToSlot(ev.clientX,ev.clientY);
+   const point=screenToScene(ev.clientX,ev.clientY,d.id);
    const moved=d.moved;activeDrag=null;$('drag-ghost')?.remove();
-   if(moved&&slot!==null){addAt(d.id,slot,{x:ev.clientX,y:ev.clientY});return}
+   if(moved&&point!==null){addAt(d.id,point,{x:ev.clientX,y:ev.clientY});return}
    state.selectedObj=d.id;renderPlace();
   });
   el.addEventListener('pointercancel',()=>{activeDrag=null;$('drag-ghost')?.remove()});
@@ -281,11 +289,11 @@ function setupPlace(){
  $('scene').addEventListener('click',ev=>{
   if(ev.target.closest('.placed-object'))return;
   if(activeDrag)return;
-  const slot=pointToSlot(ev.clientX,ev.clientY);
-  if(slot!==null&&state.selectedObj!==null)addAt(state.selectedObj,slot);
+  const point=state.selectedObj===null?null:screenToScene(ev.clientX,ev.clientY,state.selectedObj);
+  if(point!==null&&state.selectedObj!==null)addAt(state.selectedObj,point);
  });
 }
-function getCandidates(sc){return shuffle(['target','background','location','object'].map(type=>({type,img:type==='target'?sc.photo:`assets-v19/${sc.id}_${type}.webp`})))}
+function getCandidates(sc){return shuffle(['target','background','location','object'].map(type=>({type,img:type==='target'?sc.photo:`assets-v20/${sc.id}_${type}.webp`})))}
 function goRecognize(){state.phase='recognize';state.answers.recognition_started_at??=now();state.candidates??=getCandidates(state.current);persist();renderRecognize()}
 function renderRecognize(){let sc=state.current;set(box(`整體再認 ${state.idx+1}／${state.order.length}`,`<p>請在四張圖片中選出與最初看到的場景<strong>完全相同</strong>的一張，選項位置已隨機。</p><div class="choicegrid">${state.candidates.map((c,i)=>`<button class="option" id="rec${i}" onclick="chooseRec(${i})"><div class="thumb"><img src="${c.img}" alt="場景候選圖片"></div><div class="optionlabel">選項 ${'ABCD'[i]}</div></button>`).join('')}</div><div class="actions"><button id="recNext" disabled onclick="saveTrial()">儲存本題並繼續</button></div><p class="photo-note">正確選項直接取自原始編碼照片。所有選項依原照片及測試版本誘餌製作，可能含有視覺處理線索；正式研究前仍需人工審查四選一誘餌的等值性。</p>`))}
 function chooseRec(i){state.recognition=i;document.querySelectorAll('.choicegrid .option').forEach((b,j)=>b.classList.toggle('selected',i===j));$('recNext').disabled=false}
@@ -300,21 +308,30 @@ async function saveTrial(){
  const falseAlarms=selectedIds.filter(i=>i>=6).length;
  const omissions=6-hits;
  const locationCorrectItems=Array(6).fill(null),locationErrorItems=Array(6).fill(null);
+ const positionTolerancePct=9;
  for(let i=0;i<6;i++)if(chosen[i]!==null){
-  const site=state.sites[chosen[i]],truePoint=state.current.points[i];
-  locationCorrectItems[i]=(chosen[i]===i);
-  locationErrorItems[i]=site?Math.round(Math.hypot(site.x-truePoint.x,site.y-truePoint.y)*100)/100:null;
+  const pos=chosen[i],truePoint=state.current.points[i];
+  const err=Math.hypot(pos.x-truePoint.x,pos.y-truePoint.y);
+  locationCorrectItems[i]=(err<=positionTolerancePct);
+  locationErrorItems[i]=Math.round(err*100)/100;
  }
  const locVals=locationErrorItems.filter(x=>Number.isFinite(x));
- let swaps=0;for(let i=0;i<6;i++)for(let j=i+1;j<6;j++)if(chosen[i]===j&&chosen[j]===i)swaps++;
+ let swaps=0;
+ for(let i=0;i<6;i++)for(let j=i+1;j<6;j++)if(chosen[i]&&chosen[j]){
+  const pi=chosen[i],pj=chosen[j],ti=state.current.points[i],tj=state.current.points[j];
+  if(Math.hypot(pi.x-tj.x,pi.y-tj.y)<=positionTolerancePct &&
+     Math.hypot(pj.x-ti.x,pj.y-ti.y)<=positionTolerancePct)swaps++;
+ }
  state.answers.scoring={
-  scoring_version:'nemav-v19-complete-placed-pilot',
+  scoring_version:'nemav-v20-free-placement-pilot',
   reconstruction_administered:true,background_recognition_administered:false,be_administered:false,
   object_hits:hits,object_false_alarms:falseAlarms,object_omissions:omissions,
   object_hit_rate:hits/6,object_false_alarm_rate:falseAlarms/4,
   object_discrimination_pr:hits/6-falseAlarms/4,
   selected_object_total:selectedIds.length,
   location_correct:locationCorrectItems.filter(v=>v===true).length,
+  location_tolerance_pct:positionTolerancePct,
+  location_response_mode:"continuous_percent_coordinates",
   location_correct_items:locationCorrectItems,
   location_errors_percent:locationErrorItems,
   mean_location_error_pct:locVals.length?locVals.reduce((a,b)=>a+b,0)/locVals.length:null,
@@ -333,12 +350,12 @@ async function completePhase(){if(phaseMode==='immediate'){
  try{immediateEnd=await serverComplete();persist();await syncRun('immediate');showWaiting();const q=protocol()?.steps||[];const i=q.indexOf('nemav:immediate'),j=q.indexOf('nemav:delayed');if(i>=0&&j>i&&q.slice(i+1,j).includes('nvcst'))startIntervening()}
  catch(e){set(box('無法完成 NEMA-V-I',`<p>雲端儲存有問題：${e.message}。請檢查網路與 Supabase，勿清除本機進度。</p><button onclick="completePhase()">重試完成確認</button>`))}
  }else{try{await syncRun('delayed');phaseMode='finished';state.phase='done';persist();finish()}catch(e){set(box('雲端同步未完成',`<p>${e.message}</p><button onclick="completePhase()">重試同步</button>`))}}}
-function finish(){state.phase='done';let summary=state.runs.map((r,i)=>`第 ${i+1} 題（${r.id}）｜正確認出物品 ${r.scoring?.object_hits??'?'}／6，誤選 ${r.scoring?.object_false_alarms??'?'}／4，正確物件位置 ${r.scoring?.location_correct??'?'}／${r.scoring?.location_denominator_correctly_selected??'?'}；整體再認：${r.recognition_correct?'正確':r.recognition_type}`).join('\n');set(box('NEMA-V 施測完成',`<p>所選場景已完成延宕測驗，逐題結果已送往 Supabase。可下載 JSON 檢查物件辨識、錯選、遺漏、位置與作答時間。</p><div class="summary">${summary}</div><div class="actions"><button onclick="exportData()">下載測試結果 JSON</button><button class="alt" onclick="resetAssessment()">建立另一個測試場次</button></div><p class="notice">v19 為未經心理計量驗證的試測原型；放置素材為完整重繪圖（非原始照片逐像素擷取）；foils 配對與正確位置標記需進一步品質檢查，不可用於正式臨床計分。</p>`));}
+function finish(){state.phase='done';let summary=state.runs.map((r,i)=>`第 ${i+1} 題（${r.id}）｜正確認出物品 ${r.scoring?.object_hits??'?'}／6，誤選 ${r.scoring?.object_false_alarms??'?'}／4，正確物件位置 ${r.scoring?.location_correct??'?'}／${r.scoring?.location_denominator_correctly_selected??'?'}；整體再認：${r.recognition_correct?'正確':r.recognition_type}`).join('\n');set(box('NEMA-V 施測完成',`<p>所選場景已完成延宕測驗，逐題結果已送往 Supabase。可下載 JSON 檢查物件辨識、錯選、遺漏、位置與作答時間。</p><div class="summary">${summary}</div><div class="actions"><button onclick="exportData()">下載測試結果 JSON</button><button class="alt" onclick="resetAssessment()">建立另一個測試場次</button></div><p class="notice">v20 為未經心理計量驗證的試測原型；放置素材包含寫實透明圖與完整繪製圖（非原始照片逐像素擷取）；foils 配對與正確位置標記需進一步品質檢查，不可用於正式臨床計分。</p>`));}
 function resetAssessment(){if(confirm('建立新場次會清除本裝置上的 NEMA-V 本機進度，請先匯出並確認 Supabase 資料完整。繼續嗎？')){localStorage.removeItem(PERSIST);assessment=null;immediateEnd=null;phaseMode='immediate';initial()}}
-function exportData(){let data={tool:'NEMA-V prototype',version:'v19',started:state.started,assessment_id:assessment,phase:phaseMode,exported:now(),runs:state.runs,notes:'Research prototype; cloud copy in nemav_sessions, nemav_trials and test_runs; not clinically validated.'};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='NEMA_V_demo_'+new Date().toISOString().replaceAll(':','-')+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000)}
+function exportData(){let data={tool:'NEMA-V prototype',version:'v20',started:state.started,assessment_id:assessment,phase:phaseMode,exported:now(),runs:state.runs,notes:'Research prototype; cloud copy in nemav_sessions, nemav_trials and test_runs; not clinically validated.'};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='NEMA_V_demo_'+new Date().toISOString().replaceAll(':','-')+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000)}
 // TeleNPA cloud integration and 25-minute delayed recall. Active account/battery required.
 const A=window.TeleNPAAuth;
-const PERSIST='telenpa_nemav_progress_v19';
+const PERSIST='telenpa_nemav_progress_v20';
 const activeBattery=()=>{try{return JSON.parse(localStorage.getItem('telenpa_battery_active_v2')||'null')}catch{return null}};
 const protocol=()=>{try{return JSON.parse(localStorage.getItem('telenpa_protocol_builder_v3')||'null')}catch{return null}};
 let assessment=null, immediateEnd=null, phaseMode='immediate', clinicalSync=false, busy=false;
@@ -348,7 +365,7 @@ async function insertRow(table,row){return cloud('/rest/v1/'+table,{method:'POST
 async function initAssessment(){
  const b=activeBattery();if(!A.user())throw Error('請先在首頁登入 Supabase');if(!b?.id)throw Error('請先在首頁選用受試者場次');
  assessment=crypto.randomUUID();
- await insertRow('nemav_sessions',{id:assessment,owner_id:A.user().id,battery_session_id:b.id,stimulus_order:state.order.map(x=>({scene_id:x.id,locations:x.locs,scene_set:state.sceneSet,encoding_duration_ms:10000,foil_count:4,target_count:6})),stimulus_version:'nemav-v19-complete-placed-pilot'});
+ await insertRow('nemav_sessions',{id:assessment,owner_id:A.user().id,battery_session_id:b.id,stimulus_order:state.order.map(x=>({scene_id:x.id,locations:x.locs,scene_set:state.sceneSet,encoding_duration_ms:10000,foil_count:4,target_count:6})),stimulus_version:'nemav-v20-free-placement-pilot'});
  persist();
 }
 async function syncTrial(r,index){
@@ -363,7 +380,7 @@ async function syncRun(phase){
  await cloud('/rest/v1/test_runs?on_conflict=id',{
  method:'POST',headers:{Prefer:'resolution=ignore-duplicates,return=minimal'},
  body:JSON.stringify({id:state.runIds[phase],owner_id:A.user().id,battery_session_id:activeBattery().id,
- test_id:'nemav',test_version:'nemav-v19-complete-placed-pilot',mode:'formal',condition:phase,status:'completed',
+ test_id:'nemav',test_version:'nemav-v20-free-placement-pilot',mode:'formal',condition:phase,status:'completed',
  started_at:phase==='immediate'?state.started:immediateEnd,ended_at:new Date().toISOString(),source_record_id:assessment})});
 }
 
@@ -402,3 +419,5 @@ try{dependencyCheck();resumeOrStart().catch(e=>set(box('無法載入 NEMA-V',`<p
 catch(e){set(box('NEMA-V 啟動設定錯誤',`<p>${e.message}</p><p class="minor">請從正式 TeleNPA 網站進入，勿使用裝置檔案預覽。可到 GitHub 確認 shared/auth.js、config.js、nema-v/index.html 位於同一個儲存庫根目錄。</p><button onclick="location.assign('../')">返回首頁</button>`))}
 
 </script></body></html>
+
+<!-- NEMA-V v20: continuous scene placement, mixed photographic/illustrated pilot assets. -->
