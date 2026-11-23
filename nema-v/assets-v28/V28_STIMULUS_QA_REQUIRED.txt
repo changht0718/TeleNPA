@@ -1,4 +1,0 @@
-NEMA-V v28 PILOT ASSETS
-Each object has 6 alpha pose assets derived from photographic master by rotation/foreshortening; NOT independent full-image photorealistic redraws.
-Recognition foils: target is original encoded photo, three foil images regenerated as full scene composites on clear photo background; no blur-mask erase artifacts, but style/geometry could disclose correct choice.
-All scene sets A and B need manual retouch and perceptual-difficulty matching prior to formal scoring.
