@@ -1,0 +1,686 @@
+{
+  "version": "v30.1",
+  "status": "design_only",
+  "scenes": [
+    {
+      "id": "M1",
+      "label": "廚房",
+      "encoding": "assets-v30_1_new/M1/encoding.png",
+      "empty": "assets-v30_1_new/M1/empty.png",
+      "foils": {
+        "location": "assets-v30_1_new/M1/location.png",
+        "object": "assets-v30_1_new/M1/object.png",
+        "background": "assets-v30_1_new/M1/background.png"
+      },
+      "masks": {
+        "location": "assets-v30_1_new/M1/location_mask.png",
+        "object": "assets-v30_1_new/M1/object_mask.png",
+        "background": "assets-v30_1_new/M1/background_mask.png"
+      },
+      "objects": [
+        {
+          "tray": "assets-v30_1_new/M1/tray_0.png",
+          "poses": [
+            "assets-v30_1_new/M1/pose_0_0.png",
+            "assets-v30_1_new/M1/pose_0_1.png",
+            "assets-v30_1_new/M1/pose_0_2.png",
+            "assets-v30_1_new/M1/pose_0_3.png",
+            "assets-v30_1_new/M1/pose_0_4.png",
+            "assets-v30_1_new/M1/pose_0_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M1/tray_1.png",
+          "poses": [
+            "assets-v30_1_new/M1/pose_1_0.png",
+            "assets-v30_1_new/M1/pose_1_1.png",
+            "assets-v30_1_new/M1/pose_1_2.png",
+            "assets-v30_1_new/M1/pose_1_3.png",
+            "assets-v30_1_new/M1/pose_1_4.png",
+            "assets-v30_1_new/M1/pose_1_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M1/tray_2.png",
+          "poses": [
+            "assets-v30_1_new/M1/pose_2_0.png",
+            "assets-v30_1_new/M1/pose_2_1.png",
+            "assets-v30_1_new/M1/pose_2_2.png",
+            "assets-v30_1_new/M1/pose_2_3.png",
+            "assets-v30_1_new/M1/pose_2_4.png",
+            "assets-v30_1_new/M1/pose_2_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M1/tray_3.png",
+          "poses": [
+            "assets-v30_1_new/M1/pose_3_0.png",
+            "assets-v30_1_new/M1/pose_3_1.png",
+            "assets-v30_1_new/M1/pose_3_2.png",
+            "assets-v30_1_new/M1/pose_3_3.png",
+            "assets-v30_1_new/M1/pose_3_4.png",
+            "assets-v30_1_new/M1/pose_3_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M1/tray_4.png",
+          "poses": [
+            "assets-v30_1_new/M1/pose_4_0.png",
+            "assets-v30_1_new/M1/pose_4_1.png",
+            "assets-v30_1_new/M1/pose_4_2.png",
+            "assets-v30_1_new/M1/pose_4_3.png",
+            "assets-v30_1_new/M1/pose_4_4.png",
+            "assets-v30_1_new/M1/pose_4_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M1/tray_5.png",
+          "poses": [
+            "assets-v30_1_new/M1/pose_5_0.png",
+            "assets-v30_1_new/M1/pose_5_1.png",
+            "assets-v30_1_new/M1/pose_5_2.png",
+            "assets-v30_1_new/M1/pose_5_3.png",
+            "assets-v30_1_new/M1/pose_5_4.png",
+            "assets-v30_1_new/M1/pose_5_5.png"
+          ]
+        }
+      ],
+      "manual_visual_qa": false
+    },
+    {
+      "id": "M2",
+      "label": "書房",
+      "encoding": "assets-v30_1_new/M2/encoding.png",
+      "empty": "assets-v30_1_new/M2/empty.png",
+      "foils": {
+        "location": "assets-v30_1_new/M2/location.png",
+        "object": "assets-v30_1_new/M2/object.png",
+        "background": "assets-v30_1_new/M2/background.png"
+      },
+      "masks": {
+        "location": "assets-v30_1_new/M2/location_mask.png",
+        "object": "assets-v30_1_new/M2/object_mask.png",
+        "background": "assets-v30_1_new/M2/background_mask.png"
+      },
+      "objects": [
+        {
+          "tray": "assets-v30_1_new/M2/tray_0.png",
+          "poses": [
+            "assets-v30_1_new/M2/pose_0_0.png",
+            "assets-v30_1_new/M2/pose_0_1.png",
+            "assets-v30_1_new/M2/pose_0_2.png",
+            "assets-v30_1_new/M2/pose_0_3.png",
+            "assets-v30_1_new/M2/pose_0_4.png",
+            "assets-v30_1_new/M2/pose_0_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M2/tray_1.png",
+          "poses": [
+            "assets-v30_1_new/M2/pose_1_0.png",
+            "assets-v30_1_new/M2/pose_1_1.png",
+            "assets-v30_1_new/M2/pose_1_2.png",
+            "assets-v30_1_new/M2/pose_1_3.png",
+            "assets-v30_1_new/M2/pose_1_4.png",
+            "assets-v30_1_new/M2/pose_1_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M2/tray_2.png",
+          "poses": [
+            "assets-v30_1_new/M2/pose_2_0.png",
+            "assets-v30_1_new/M2/pose_2_1.png",
+            "assets-v30_1_new/M2/pose_2_2.png",
+            "assets-v30_1_new/M2/pose_2_3.png",
+            "assets-v30_1_new/M2/pose_2_4.png",
+            "assets-v30_1_new/M2/pose_2_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M2/tray_3.png",
+          "poses": [
+            "assets-v30_1_new/M2/pose_3_0.png",
+            "assets-v30_1_new/M2/pose_3_1.png",
+            "assets-v30_1_new/M2/pose_3_2.png",
+            "assets-v30_1_new/M2/pose_3_3.png",
+            "assets-v30_1_new/M2/pose_3_4.png",
+            "assets-v30_1_new/M2/pose_3_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M2/tray_4.png",
+          "poses": [
+            "assets-v30_1_new/M2/pose_4_0.png",
+            "assets-v30_1_new/M2/pose_4_1.png",
+            "assets-v30_1_new/M2/pose_4_2.png",
+            "assets-v30_1_new/M2/pose_4_3.png",
+            "assets-v30_1_new/M2/pose_4_4.png",
+            "assets-v30_1_new/M2/pose_4_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M2/tray_5.png",
+          "poses": [
+            "assets-v30_1_new/M2/pose_5_0.png",
+            "assets-v30_1_new/M2/pose_5_1.png",
+            "assets-v30_1_new/M2/pose_5_2.png",
+            "assets-v30_1_new/M2/pose_5_3.png",
+            "assets-v30_1_new/M2/pose_5_4.png",
+            "assets-v30_1_new/M2/pose_5_5.png"
+          ]
+        }
+      ],
+      "manual_visual_qa": false
+    },
+    {
+      "id": "M3",
+      "label": "玄關",
+      "encoding": "assets-v30_1_new/M3/encoding.png",
+      "empty": "assets-v30_1_new/M3/empty.png",
+      "foils": {
+        "location": "assets-v30_1_new/M3/location.png",
+        "object": "assets-v30_1_new/M3/object.png",
+        "background": "assets-v30_1_new/M3/background.png"
+      },
+      "masks": {
+        "location": "assets-v30_1_new/M3/location_mask.png",
+        "object": "assets-v30_1_new/M3/object_mask.png",
+        "background": "assets-v30_1_new/M3/background_mask.png"
+      },
+      "objects": [
+        {
+          "tray": "assets-v30_1_new/M3/tray_0.png",
+          "poses": [
+            "assets-v30_1_new/M3/pose_0_0.png",
+            "assets-v30_1_new/M3/pose_0_1.png",
+            "assets-v30_1_new/M3/pose_0_2.png",
+            "assets-v30_1_new/M3/pose_0_3.png",
+            "assets-v30_1_new/M3/pose_0_4.png",
+            "assets-v30_1_new/M3/pose_0_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M3/tray_1.png",
+          "poses": [
+            "assets-v30_1_new/M3/pose_1_0.png",
+            "assets-v30_1_new/M3/pose_1_1.png",
+            "assets-v30_1_new/M3/pose_1_2.png",
+            "assets-v30_1_new/M3/pose_1_3.png",
+            "assets-v30_1_new/M3/pose_1_4.png",
+            "assets-v30_1_new/M3/pose_1_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M3/tray_2.png",
+          "poses": [
+            "assets-v30_1_new/M3/pose_2_0.png",
+            "assets-v30_1_new/M3/pose_2_1.png",
+            "assets-v30_1_new/M3/pose_2_2.png",
+            "assets-v30_1_new/M3/pose_2_3.png",
+            "assets-v30_1_new/M3/pose_2_4.png",
+            "assets-v30_1_new/M3/pose_2_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M3/tray_3.png",
+          "poses": [
+            "assets-v30_1_new/M3/pose_3_0.png",
+            "assets-v30_1_new/M3/pose_3_1.png",
+            "assets-v30_1_new/M3/pose_3_2.png",
+            "assets-v30_1_new/M3/pose_3_3.png",
+            "assets-v30_1_new/M3/pose_3_4.png",
+            "assets-v30_1_new/M3/pose_3_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M3/tray_4.png",
+          "poses": [
+            "assets-v30_1_new/M3/pose_4_0.png",
+            "assets-v30_1_new/M3/pose_4_1.png",
+            "assets-v30_1_new/M3/pose_4_2.png",
+            "assets-v30_1_new/M3/pose_4_3.png",
+            "assets-v30_1_new/M3/pose_4_4.png",
+            "assets-v30_1_new/M3/pose_4_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M3/tray_5.png",
+          "poses": [
+            "assets-v30_1_new/M3/pose_5_0.png",
+            "assets-v30_1_new/M3/pose_5_1.png",
+            "assets-v30_1_new/M3/pose_5_2.png",
+            "assets-v30_1_new/M3/pose_5_3.png",
+            "assets-v30_1_new/M3/pose_5_4.png",
+            "assets-v30_1_new/M3/pose_5_5.png"
+          ]
+        }
+      ],
+      "manual_visual_qa": false
+    },
+    {
+      "id": "M4",
+      "label": "花園",
+      "encoding": "assets-v30_1_new/M4/encoding.png",
+      "empty": "assets-v30_1_new/M4/empty.png",
+      "foils": {
+        "location": "assets-v30_1_new/M4/location.png",
+        "object": "assets-v30_1_new/M4/object.png",
+        "background": "assets-v30_1_new/M4/background.png"
+      },
+      "masks": {
+        "location": "assets-v30_1_new/M4/location_mask.png",
+        "object": "assets-v30_1_new/M4/object_mask.png",
+        "background": "assets-v30_1_new/M4/background_mask.png"
+      },
+      "objects": [
+        {
+          "tray": "assets-v30_1_new/M4/tray_0.png",
+          "poses": [
+            "assets-v30_1_new/M4/pose_0_0.png",
+            "assets-v30_1_new/M4/pose_0_1.png",
+            "assets-v30_1_new/M4/pose_0_2.png",
+            "assets-v30_1_new/M4/pose_0_3.png",
+            "assets-v30_1_new/M4/pose_0_4.png",
+            "assets-v30_1_new/M4/pose_0_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M4/tray_1.png",
+          "poses": [
+            "assets-v30_1_new/M4/pose_1_0.png",
+            "assets-v30_1_new/M4/pose_1_1.png",
+            "assets-v30_1_new/M4/pose_1_2.png",
+            "assets-v30_1_new/M4/pose_1_3.png",
+            "assets-v30_1_new/M4/pose_1_4.png",
+            "assets-v30_1_new/M4/pose_1_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M4/tray_2.png",
+          "poses": [
+            "assets-v30_1_new/M4/pose_2_0.png",
+            "assets-v30_1_new/M4/pose_2_1.png",
+            "assets-v30_1_new/M4/pose_2_2.png",
+            "assets-v30_1_new/M4/pose_2_3.png",
+            "assets-v30_1_new/M4/pose_2_4.png",
+            "assets-v30_1_new/M4/pose_2_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M4/tray_3.png",
+          "poses": [
+            "assets-v30_1_new/M4/pose_3_0.png",
+            "assets-v30_1_new/M4/pose_3_1.png",
+            "assets-v30_1_new/M4/pose_3_2.png",
+            "assets-v30_1_new/M4/pose_3_3.png",
+            "assets-v30_1_new/M4/pose_3_4.png",
+            "assets-v30_1_new/M4/pose_3_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M4/tray_4.png",
+          "poses": [
+            "assets-v30_1_new/M4/pose_4_0.png",
+            "assets-v30_1_new/M4/pose_4_1.png",
+            "assets-v30_1_new/M4/pose_4_2.png",
+            "assets-v30_1_new/M4/pose_4_3.png",
+            "assets-v30_1_new/M4/pose_4_4.png",
+            "assets-v30_1_new/M4/pose_4_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/M4/tray_5.png",
+          "poses": [
+            "assets-v30_1_new/M4/pose_5_0.png",
+            "assets-v30_1_new/M4/pose_5_1.png",
+            "assets-v30_1_new/M4/pose_5_2.png",
+            "assets-v30_1_new/M4/pose_5_3.png",
+            "assets-v30_1_new/M4/pose_5_4.png",
+            "assets-v30_1_new/M4/pose_5_5.png"
+          ]
+        }
+      ],
+      "manual_visual_qa": false
+    },
+    {
+      "id": "T1",
+      "label": "傳統備食區",
+      "encoding": "assets-v30_1_new/T1/encoding.png",
+      "empty": "assets-v30_1_new/T1/empty.png",
+      "foils": {
+        "location": "assets-v30_1_new/T1/location.png",
+        "object": "assets-v30_1_new/T1/object.png",
+        "background": "assets-v30_1_new/T1/background.png"
+      },
+      "masks": {
+        "location": "assets-v30_1_new/T1/location_mask.png",
+        "object": "assets-v30_1_new/T1/object_mask.png",
+        "background": "assets-v30_1_new/T1/background_mask.png"
+      },
+      "objects": [
+        {
+          "tray": "assets-v30_1_new/T1/tray_0.png",
+          "poses": [
+            "assets-v30_1_new/T1/pose_0_0.png",
+            "assets-v30_1_new/T1/pose_0_1.png",
+            "assets-v30_1_new/T1/pose_0_2.png",
+            "assets-v30_1_new/T1/pose_0_3.png",
+            "assets-v30_1_new/T1/pose_0_4.png",
+            "assets-v30_1_new/T1/pose_0_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T1/tray_1.png",
+          "poses": [
+            "assets-v30_1_new/T1/pose_1_0.png",
+            "assets-v30_1_new/T1/pose_1_1.png",
+            "assets-v30_1_new/T1/pose_1_2.png",
+            "assets-v30_1_new/T1/pose_1_3.png",
+            "assets-v30_1_new/T1/pose_1_4.png",
+            "assets-v30_1_new/T1/pose_1_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T1/tray_2.png",
+          "poses": [
+            "assets-v30_1_new/T1/pose_2_0.png",
+            "assets-v30_1_new/T1/pose_2_1.png",
+            "assets-v30_1_new/T1/pose_2_2.png",
+            "assets-v30_1_new/T1/pose_2_3.png",
+            "assets-v30_1_new/T1/pose_2_4.png",
+            "assets-v30_1_new/T1/pose_2_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T1/tray_3.png",
+          "poses": [
+            "assets-v30_1_new/T1/pose_3_0.png",
+            "assets-v30_1_new/T1/pose_3_1.png",
+            "assets-v30_1_new/T1/pose_3_2.png",
+            "assets-v30_1_new/T1/pose_3_3.png",
+            "assets-v30_1_new/T1/pose_3_4.png",
+            "assets-v30_1_new/T1/pose_3_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T1/tray_4.png",
+          "poses": [
+            "assets-v30_1_new/T1/pose_4_0.png",
+            "assets-v30_1_new/T1/pose_4_1.png",
+            "assets-v30_1_new/T1/pose_4_2.png",
+            "assets-v30_1_new/T1/pose_4_3.png",
+            "assets-v30_1_new/T1/pose_4_4.png",
+            "assets-v30_1_new/T1/pose_4_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T1/tray_5.png",
+          "poses": [
+            "assets-v30_1_new/T1/pose_5_0.png",
+            "assets-v30_1_new/T1/pose_5_1.png",
+            "assets-v30_1_new/T1/pose_5_2.png",
+            "assets-v30_1_new/T1/pose_5_3.png",
+            "assets-v30_1_new/T1/pose_5_4.png",
+            "assets-v30_1_new/T1/pose_5_5.png"
+          ]
+        }
+      ],
+      "manual_visual_qa": false
+    },
+    {
+      "id": "T2",
+      "label": "編織工作區",
+      "encoding": "assets-v30_1_new/T2/encoding.png",
+      "empty": "assets-v30_1_new/T2/empty.png",
+      "foils": {
+        "location": "assets-v30_1_new/T2/location.png",
+        "object": "assets-v30_1_new/T2/object.png",
+        "background": "assets-v30_1_new/T2/background.png"
+      },
+      "masks": {
+        "location": "assets-v30_1_new/T2/location_mask.png",
+        "object": "assets-v30_1_new/T2/object_mask.png",
+        "background": "assets-v30_1_new/T2/background_mask.png"
+      },
+      "objects": [
+        {
+          "tray": "assets-v30_1_new/T2/tray_0.png",
+          "poses": [
+            "assets-v30_1_new/T2/pose_0_0.png",
+            "assets-v30_1_new/T2/pose_0_1.png",
+            "assets-v30_1_new/T2/pose_0_2.png",
+            "assets-v30_1_new/T2/pose_0_3.png",
+            "assets-v30_1_new/T2/pose_0_4.png",
+            "assets-v30_1_new/T2/pose_0_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T2/tray_1.png",
+          "poses": [
+            "assets-v30_1_new/T2/pose_1_0.png",
+            "assets-v30_1_new/T2/pose_1_1.png",
+            "assets-v30_1_new/T2/pose_1_2.png",
+            "assets-v30_1_new/T2/pose_1_3.png",
+            "assets-v30_1_new/T2/pose_1_4.png",
+            "assets-v30_1_new/T2/pose_1_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T2/tray_2.png",
+          "poses": [
+            "assets-v30_1_new/T2/pose_2_0.png",
+            "assets-v30_1_new/T2/pose_2_1.png",
+            "assets-v30_1_new/T2/pose_2_2.png",
+            "assets-v30_1_new/T2/pose_2_3.png",
+            "assets-v30_1_new/T2/pose_2_4.png",
+            "assets-v30_1_new/T2/pose_2_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T2/tray_3.png",
+          "poses": [
+            "assets-v30_1_new/T2/pose_3_0.png",
+            "assets-v30_1_new/T2/pose_3_1.png",
+            "assets-v30_1_new/T2/pose_3_2.png",
+            "assets-v30_1_new/T2/pose_3_3.png",
+            "assets-v30_1_new/T2/pose_3_4.png",
+            "assets-v30_1_new/T2/pose_3_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T2/tray_4.png",
+          "poses": [
+            "assets-v30_1_new/T2/pose_4_0.png",
+            "assets-v30_1_new/T2/pose_4_1.png",
+            "assets-v30_1_new/T2/pose_4_2.png",
+            "assets-v30_1_new/T2/pose_4_3.png",
+            "assets-v30_1_new/T2/pose_4_4.png",
+            "assets-v30_1_new/T2/pose_4_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T2/tray_5.png",
+          "poses": [
+            "assets-v30_1_new/T2/pose_5_0.png",
+            "assets-v30_1_new/T2/pose_5_1.png",
+            "assets-v30_1_new/T2/pose_5_2.png",
+            "assets-v30_1_new/T2/pose_5_3.png",
+            "assets-v30_1_new/T2/pose_5_4.png",
+            "assets-v30_1_new/T2/pose_5_5.png"
+          ]
+        }
+      ],
+      "manual_visual_qa": false
+    },
+    {
+      "id": "T3",
+      "label": "山屋入口",
+      "encoding": "assets-v30_1_new/T3/encoding.png",
+      "empty": "assets-v30_1_new/T3/empty.png",
+      "foils": {
+        "location": "assets-v30_1_new/T3/location.png",
+        "object": "assets-v30_1_new/T3/object.png",
+        "background": "assets-v30_1_new/T3/background.png"
+      },
+      "masks": {
+        "location": "assets-v30_1_new/T3/location_mask.png",
+        "object": "assets-v30_1_new/T3/object_mask.png",
+        "background": "assets-v30_1_new/T3/background_mask.png"
+      },
+      "objects": [
+        {
+          "tray": "assets-v30_1_new/T3/tray_0.png",
+          "poses": [
+            "assets-v30_1_new/T3/pose_0_0.png",
+            "assets-v30_1_new/T3/pose_0_1.png",
+            "assets-v30_1_new/T3/pose_0_2.png",
+            "assets-v30_1_new/T3/pose_0_3.png",
+            "assets-v30_1_new/T3/pose_0_4.png",
+            "assets-v30_1_new/T3/pose_0_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T3/tray_1.png",
+          "poses": [
+            "assets-v30_1_new/T3/pose_1_0.png",
+            "assets-v30_1_new/T3/pose_1_1.png",
+            "assets-v30_1_new/T3/pose_1_2.png",
+            "assets-v30_1_new/T3/pose_1_3.png",
+            "assets-v30_1_new/T3/pose_1_4.png",
+            "assets-v30_1_new/T3/pose_1_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T3/tray_2.png",
+          "poses": [
+            "assets-v30_1_new/T3/pose_2_0.png",
+            "assets-v30_1_new/T3/pose_2_1.png",
+            "assets-v30_1_new/T3/pose_2_2.png",
+            "assets-v30_1_new/T3/pose_2_3.png",
+            "assets-v30_1_new/T3/pose_2_4.png",
+            "assets-v30_1_new/T3/pose_2_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T3/tray_3.png",
+          "poses": [
+            "assets-v30_1_new/T3/pose_3_0.png",
+            "assets-v30_1_new/T3/pose_3_1.png",
+            "assets-v30_1_new/T3/pose_3_2.png",
+            "assets-v30_1_new/T3/pose_3_3.png",
+            "assets-v30_1_new/T3/pose_3_4.png",
+            "assets-v30_1_new/T3/pose_3_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T3/tray_4.png",
+          "poses": [
+            "assets-v30_1_new/T3/pose_4_0.png",
+            "assets-v30_1_new/T3/pose_4_1.png",
+            "assets-v30_1_new/T3/pose_4_2.png",
+            "assets-v30_1_new/T3/pose_4_3.png",
+            "assets-v30_1_new/T3/pose_4_4.png",
+            "assets-v30_1_new/T3/pose_4_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T3/tray_5.png",
+          "poses": [
+            "assets-v30_1_new/T3/pose_5_0.png",
+            "assets-v30_1_new/T3/pose_5_1.png",
+            "assets-v30_1_new/T3/pose_5_2.png",
+            "assets-v30_1_new/T3/pose_5_3.png",
+            "assets-v30_1_new/T3/pose_5_4.png",
+            "assets-v30_1_new/T3/pose_5_5.png"
+          ]
+        }
+      ],
+      "manual_visual_qa": false
+    },
+    {
+      "id": "T4",
+      "label": "採集整理區",
+      "encoding": "assets-v30_1_new/T4/encoding.png",
+      "empty": "assets-v30_1_new/T4/empty.png",
+      "foils": {
+        "location": "assets-v30_1_new/T4/location.png",
+        "object": "assets-v30_1_new/T4/object.png",
+        "background": "assets-v30_1_new/T4/background.png"
+      },
+      "masks": {
+        "location": "assets-v30_1_new/T4/location_mask.png",
+        "object": "assets-v30_1_new/T4/object_mask.png",
+        "background": "assets-v30_1_new/T4/background_mask.png"
+      },
+      "objects": [
+        {
+          "tray": "assets-v30_1_new/T4/tray_0.png",
+          "poses": [
+            "assets-v30_1_new/T4/pose_0_0.png",
+            "assets-v30_1_new/T4/pose_0_1.png",
+            "assets-v30_1_new/T4/pose_0_2.png",
+            "assets-v30_1_new/T4/pose_0_3.png",
+            "assets-v30_1_new/T4/pose_0_4.png",
+            "assets-v30_1_new/T4/pose_0_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T4/tray_1.png",
+          "poses": [
+            "assets-v30_1_new/T4/pose_1_0.png",
+            "assets-v30_1_new/T4/pose_1_1.png",
+            "assets-v30_1_new/T4/pose_1_2.png",
+            "assets-v30_1_new/T4/pose_1_3.png",
+            "assets-v30_1_new/T4/pose_1_4.png",
+            "assets-v30_1_new/T4/pose_1_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T4/tray_2.png",
+          "poses": [
+            "assets-v30_1_new/T4/pose_2_0.png",
+            "assets-v30_1_new/T4/pose_2_1.png",
+            "assets-v30_1_new/T4/pose_2_2.png",
+            "assets-v30_1_new/T4/pose_2_3.png",
+            "assets-v30_1_new/T4/pose_2_4.png",
+            "assets-v30_1_new/T4/pose_2_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T4/tray_3.png",
+          "poses": [
+            "assets-v30_1_new/T4/pose_3_0.png",
+            "assets-v30_1_new/T4/pose_3_1.png",
+            "assets-v30_1_new/T4/pose_3_2.png",
+            "assets-v30_1_new/T4/pose_3_3.png",
+            "assets-v30_1_new/T4/pose_3_4.png",
+            "assets-v30_1_new/T4/pose_3_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T4/tray_4.png",
+          "poses": [
+            "assets-v30_1_new/T4/pose_4_0.png",
+            "assets-v30_1_new/T4/pose_4_1.png",
+            "assets-v30_1_new/T4/pose_4_2.png",
+            "assets-v30_1_new/T4/pose_4_3.png",
+            "assets-v30_1_new/T4/pose_4_4.png",
+            "assets-v30_1_new/T4/pose_4_5.png"
+          ]
+        },
+        {
+          "tray": "assets-v30_1_new/T4/tray_5.png",
+          "poses": [
+            "assets-v30_1_new/T4/pose_5_0.png",
+            "assets-v30_1_new/T4/pose_5_1.png",
+            "assets-v30_1_new/T4/pose_5_2.png",
+            "assets-v30_1_new/T4/pose_5_3.png",
+            "assets-v30_1_new/T4/pose_5_4.png",
+            "assets-v30_1_new/T4/pose_5_5.png"
+          ]
+        }
+      ],
+      "manual_visual_qa": false
+    }
+  ]
+}

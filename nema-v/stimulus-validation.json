@@ -1,0 +1,69 @@
+{
+  "pass": false,
+  "scenes": [
+    {
+      "scene": "M1",
+      "pass": false,
+      "issues": [
+        "[Errno 2] No such file or directory: '/mnt/data/v301_full_review/nema-v/assets-v30_1_new/M1/encoding.png'",
+        "Manual semantic and photographic QA pending"
+      ]
+    },
+    {
+      "scene": "M2",
+      "pass": false,
+      "issues": [
+        "[Errno 2] No such file or directory: '/mnt/data/v301_full_review/nema-v/assets-v30_1_new/M2/encoding.png'",
+        "Manual semantic and photographic QA pending"
+      ]
+    },
+    {
+      "scene": "M3",
+      "pass": false,
+      "issues": [
+        "[Errno 2] No such file or directory: '/mnt/data/v301_full_review/nema-v/assets-v30_1_new/M3/encoding.png'",
+        "Manual semantic and photographic QA pending"
+      ]
+    },
+    {
+      "scene": "M4",
+      "pass": false,
+      "issues": [
+        "[Errno 2] No such file or directory: '/mnt/data/v301_full_review/nema-v/assets-v30_1_new/M4/encoding.png'",
+        "Manual semantic and photographic QA pending"
+      ]
+    },
+    {
+      "scene": "T1",
+      "pass": false,
+      "issues": [
+        "[Errno 2] No such file or directory: '/mnt/data/v301_full_review/nema-v/assets-v30_1_new/T1/encoding.png'",
+        "Manual semantic and photographic QA pending"
+      ]
+    },
+    {
+      "scene": "T2",
+      "pass": false,
+      "issues": [
+        "[Errno 2] No such file or directory: '/mnt/data/v301_full_review/nema-v/assets-v30_1_new/T2/encoding.png'",
+        "Manual semantic and photographic QA pending"
+      ]
+    },
+    {
+      "scene": "T3",
+      "pass": false,
+      "issues": [
+        "[Errno 2] No such file or directory: '/mnt/data/v301_full_review/nema-v/assets-v30_1_new/T3/encoding.png'",
+        "Manual semantic and photographic QA pending"
+      ]
+    },
+    {
+      "scene": "T4",
+      "pass": false,
+      "issues": [
+        "[Errno 2] No such file or directory: '/mnt/data/v301_full_review/nema-v/assets-v30_1_new/T4/encoding.png'",
+        "Manual semantic and photographic QA pending"
+      ]
+    }
+  ]
+}
